@@ -7,86 +7,30 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
-use app\models\EntryForm;
+
+
+use app\models\Robot;
+use app\models\RobotSearch;
+use yii\web\NotFoundHttpException;
+
 
 class SiteController extends Controller
 {
 
-
-
-
-
-
-
-
-  public function actionEntry()
-      {
-          $model = new EntryForm();
-
-          if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-              // данные в $model удачно проверены
-
-              // делаем что-то полезное с $model ...
-
-              return $this->render('entry-confirm', ['model' => $model]);
-          } else {
-              // либо страница отображается первый раз, либо есть ошибка в данных
-              return $this->render('entry', ['model' => $model]);
-          }
-      }
-
-
-
-
-
-
-
-
-  public function actionSay($message = 'Привет')
-      {
-          return $this->render('say', ['message' => $message]);
-      }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-    }
+  /**
+   * {@inheritdoc}
+   */
+  public function behaviors()
+  {
+      return [
+          'verbs' => [
+              'class' => VerbFilter::className(),
+              'actions' => [
+                  'delete' => ['POST'],
+              ],
+          ],
+      ];
+  }
 
     /**
      * {@inheritdoc}
@@ -104,67 +48,123 @@ class SiteController extends Controller
         ];
     }
 
+
+
     /**
-     * Displays homepage.
-     *
-     * @return string
+     * Finds the Robot model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Robot the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+
+
+      $model = Robot::find()
+          ->select('t1.id as id,
+          t1.YName as YName,
+          t1.SName as SName,
+          t2.Discipline as Discipline,
+          t1.Platform as Platform,
+          t1.Weight as Weight')
+          ->from('robot t1')
+          ->innerJoin('discipline t2', 't1.Discipline = t2.id')
+          ->where("t1.id = {$id}")
+          ->one();
+
+        if ($model !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+    /**
+     * Lists all Robot models.
+     * @return mixed
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $searchModel = new RobotSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+
+
+    /**
+     * Displays a single Robot model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
     }
 
     /**
-     * Login action.
-     *
-     * @return Response|string
+     * Creates a new Robot model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
      */
-    public function actionLogin()
+    public function actionCreate()
     {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+        $model = new Robot();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-
-        $model->password = '';
-        return $this->render('login', [
+        return $this->render('create', [
             'model' => $model,
         ]);
     }
 
     /**
-     * Logout action.
-     *
-     * @return Response
+     * Updates an existing Robot model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionLogout()
+    public function actionUpdate($id)
     {
-        Yii::$app->user->logout();
+        $model = $this->findModel($id);
 
-        return $this->goHome();
-    }
-
-    /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
-        return $this->render('contact', [
+
+        return $this->render('update', [
             'model' => $model,
         ]);
     }
+
+    /**
+     * Deletes an existing Robot model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+
+
 
     /**
      * Displays about page.

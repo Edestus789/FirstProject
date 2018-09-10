@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Platform') ?>
 
-    <?php // echo $form->field($model, 'Weight') ?>
+    <?= $form->field($model, 'Weight') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

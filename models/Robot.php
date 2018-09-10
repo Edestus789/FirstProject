@@ -32,6 +32,7 @@ class Robot extends \yii\db\ActiveRecord
         return [
             [['YName', 'SName', 'Discipline', 'Platform'], 'string', 'max' => 30],
             [['Weight'], 'string', 'max' => 10],
+            [['YName', 'Discipline', 'Platform'], 'required'],
         ];
     }
 
