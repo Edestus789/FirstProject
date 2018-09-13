@@ -4,15 +4,15 @@
 
 use yii\helpers\Html;
 
-$this->title = 'About '.Yii::$app->name;
+$this->title = Yii::t('common', 'About ').Yii::$app->name;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-about">
     <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        This is the About page.
+<?php
+       echo Yii::t('common', 'This page about ');
+       echo Yii::$app->name;
+?> .
     </p>
-
-    <!-- <code><?= __FILE__ ?></code> -->
 </div>

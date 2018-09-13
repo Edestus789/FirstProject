@@ -4,6 +4,10 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
+    'language' => 'ru',
+    // 'language' => 'en',
+    // 'sourceLanguage' => 'en',
+
     'name' => 'Robot Fest',
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
@@ -13,6 +17,15 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'i18n' => [
+            'translations' => [
+                'common*' => [
+                   'sourceLanguage' => 'en',
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+                ],
+            ],
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'isgHB9J28hGbgGmrE0b_CtNQe47M8rzS',
@@ -44,14 +57,6 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
-        ],
-        */
     ],
     'params' => $params,
 ];

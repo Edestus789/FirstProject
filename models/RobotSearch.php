@@ -41,36 +41,16 @@ class RobotSearch extends Robot
      */
     public function search($params)
     {
-
-
         $query = Robot::find()
-
-
         ->select('t1.id as id,
-        t1.YName as YName,
-        t1.SName as SName,
-        t2.Discipline as Discipline,
-        t1.Platform as Platform,
-        t1.Weight as Weight')
+          t1.YName as YName,
+          t1.SName as SName,
+          t2.Discipline as Discipline,
+          t1.Platform as Platform,
+          t1.Weight as Weight')
         ->from('robot t1')
         ->innerJoin('discipline t2', 't1.Discipline = t2.id')
-        // ->where('t1.id = :id')
         ->orderBy('id');
-        // //
-        // // " SELECT
-        //              t1.id as id,
-        //              t1.YName as YName,
-        //              t1.SName as SName,
-        //              t2.Discipline as Discipline,
-        //              t1.Platform as Platform,
-        //              t1.Weight as Weight
-        // //         FROM robot t1 INNER JOIN discipline t2 ON t1.Discipline = t2.id WHERE t1.id = :id
-        // //       ";
-
-
-
-
-        // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -97,31 +77,4 @@ class RobotSearch extends Robot
 
         return $dataProvider;
     }
-
-    // public function searchOne($id)
-    // {
-    //
-    //
-    //     $query = Robot::find($id)
-    //
-    //
-    //     ->select('t1.id as id,
-    //     t1.YName as YName,
-    //     t1.SName as SName,
-    //     t2.Discipline as Discipline,
-    //     t1.Platform as Platform,
-    //     t1.Weight as Weight')
-    //     ->from('robot t1')
-    //     ->innerJoin('discipline t2', 't1.Discipline = t2.id')
-    //     ->where('t1.id = '.$id)
-    //     ->orderBy('id');
-    //     $dataProvider = new ActiveDataProvider([
-    //         'query' => $query,
-    //     ]);
-    //     return $dataProvider;
-    // }
-
-
-
-
 }

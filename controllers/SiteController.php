@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 
 use app\models\Robot;
 use app\models\RobotSearch;
+use app\models\DisciplineClass;
 use yii\web\NotFoundHttpException;
 
 
@@ -37,6 +38,31 @@ class SiteController extends Controller
      */
     public function actions()
     {
+      $request = Yii::$app->request;
+      $get = $request->get('language','');
+      $session = Yii::$app->session;
+      switch ($get) {
+        case 'en':
+          \Yii::$app->language = 'en';
+          $session->set('language', 'en');
+        break;
+
+        case 'ru':
+          \Yii::$app->language = 'ru';
+          $session->set('language', 'ru');
+        break;
+
+        case '':
+          \Yii::$app->language  = $session->get('language');
+        break;
+
+        default:
+        break;
+      }
+
+      $session->close();
+
+
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
@@ -47,8 +73,6 @@ class SiteController extends Controller
             ],
         ];
     }
-
-
 
     /**
      * Finds the Robot model based on its primary key value.
@@ -81,12 +105,38 @@ class SiteController extends Controller
     }
 
 
+    private function fixCollision()
+    {
+
+      $itemsDis15 = \yii\helpers\ArrayHelper::map(Robot::find()
+        ->all(), 'id', 'Discipline');
+
+      $itemsDis16 = \yii\helpers\ArrayHelper::map(DisciplineClass::find()
+        ->all(), 'Discipline', 'id');
+
+      foreach ($itemsDis15 as $key => $value1) {
+        $i = false;
+        foreach ($itemsDis16 as &$value2) {
+          if($value1 == $value2){
+            $i=true;
+          }
+        }
+        if($i == false){
+          $rowRobot= Robot::findOne($key);
+          $rowRobot->Discipline  = '1';
+          $rowRobot->save();
+        }
+      }
+    }
+
     /**
      * Lists all Robot models.
      * @return mixed
      */
     public function actionIndex()
     {
+
+        $this->fixCollision();
         $searchModel = new RobotSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -94,9 +144,8 @@ class SiteController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+
     }
-
-
 
     /**
      * Displays a single Robot model.
@@ -106,6 +155,7 @@ class SiteController extends Controller
      */
     public function actionView($id)
     {
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -162,9 +212,6 @@ class SiteController extends Controller
 
         return $this->redirect(['index']);
     }
-
-
-
 
     /**
      * Displays about page.
