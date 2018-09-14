@@ -4,7 +4,7 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Robot */
+/* @var $model app\models\DisciplineClass */
 
 $this->title = Yii::t('common', 'Create Discipline');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Discipline'), 'url' => ['index']];

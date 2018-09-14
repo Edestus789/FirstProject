@@ -1,32 +1,34 @@
 <?php
 
+//  Robot Model
+
 namespace app\models;
 
 use Yii;
 
 /**
- * This is the model class for table "robot".
- *
- * @property int $id
- * @property string $YName
- * @property string $SName
- * @property string $Discipline
- * @property string $Platform
- * @property string $Weight
- */
+  * This is the model class for table "robot".
+  *
+  * @property int $id
+  * @property string $YName
+  * @property string $SName
+  * @property string $Discipline
+  * @property string $Platform
+  * @property string $Weight
+  */
 class Robot extends \yii\db\ActiveRecord
 {
     /**
-     * {@inheritdoc}
-     */
+      * {@inheritdoc}
+      */
     public static function tableName()
     {
         return 'robot';
     }
 
     /**
-     * {@inheritdoc}
-     */
+      * {@inheritdoc}
+      */
     public function rules()
     {
         return [
@@ -37,8 +39,8 @@ class Robot extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
-     */
+      * {@inheritdoc}
+      */
     public function attributeLabels()
     {
         return [

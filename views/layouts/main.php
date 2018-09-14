@@ -11,76 +11,65 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
-<head>
-    <meta charset="<?= Yii::$app->charset ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
-</head>
-<body>
-<?php $this->beginBody() ?>
-<div class="wrap">
-    <?php
-    NavBar::begin([
-          'brandLabel' => Yii::$app->name,
-          'brandUrl' => Yii::$app->homeUrl,
-          'options' => [
-              'class' => 'navbar-inverse navbar-fixed-top',
-          ],
-      ]);
-      if ( \Yii::$app->controller->route =='site/index'||\Yii::$app->controller->route =='site/about'|| \Yii::$app->controller->route =='discipline/index')
-        {
-          echo Nav::widget([
-              'options' => ['class' => 'navbar-nav navbar-right'],
-              'items' => [
-                  // ['label' => Yii::t('common', 'Home'), 'url' => ['/site/index']],
-                  // ['label' => Yii::t('common', 'About us'), 'url' => ['/site/about']],
-                  ['label' => Yii::t('common', 'Home'), 'url' => ['/site/index']],
-                  ['label' => Yii::t('common', 'About us'), 'url' => ['/site/about']],
-                  ['label' => (\Yii::$app->language == 'ru')?'Go to English':'Перейти на Русский',
-                   'url' => (\Yii::$app->language == 'ru')?[\Yii::$app->controller->route, 'language' => 'en']:[\Yii::$app->controller->route, 'language' => 'ru'],],
-              ],
-          ]);
+  <head>
+      <meta charset="<?= Yii::$app->charset ?>">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <?= Html::csrfMetaTags() ?>
+      <title><?= Html::encode($this->title) ?></title>
+      <?php $this->head() ?>
+  </head>
+  <body>
+    <?php $this->beginBody() ?>
+    <div class="wrap">
 
-      }
-      else {
-        echo Nav::widget([
-            'options' => ['class' => 'navbar-nav navbar-right'],
-            'items' => [
-                ['label' => Yii::t('common', 'Home'), 'url' => ['/site/index']],
-                ['label' => Yii::t('common', 'About us'), 'url' => ['/site/about']],
+        <?php
 
-            ],
-        ]);
-      }
-    NavBar::end();
-    ?>
+        NavBar::begin([
+                'brandLabel' => Yii::$app->name,
+                'brandUrl' => Yii::$app->homeUrl,
+                'options' => [
+                    'class' => 'navbar-inverse navbar-fixed-top',
+                ],
+            ]);
+            echo Nav::widget([
+                'options' => ['class' => 'navbar-nav navbar-right'],
+                'items' => [
+                    ['label' => Yii::t('common', 'Home'), 'url' => ['/site/index']],
+                    ['label' => Yii::t('common', 'About us'), 'url' => ['/site/about']],
+                    ['label' => (\Yii::$app->language == 'ru')?'Go to English':'Перейти на Русский',
+                     'url' => (\Yii::$app->language == 'ru')?[\Yii::$app->controller->route,
+                      'language' => 'en']:[\Yii::$app->controller->route, 'language' => 'ru'],],
+                ],
+            ]);
+        NavBar::end();
 
-    <div class="container">
-      <?= Breadcrumbs::widget([
-          'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-      ]) ?>
+        ?>
+
+        <div class="container">
+          <?= Breadcrumbs::widget([
+              'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+          ]) ?>
 
 
-      <?= Alert::widget() ?>
-      <?= $content ?>
+          <?= Alert::widget() ?>
+          <?= $content ?>
+        </div>
     </div>
-</div>
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; Robot Fest <?= date('Y') ?>
+    <footer class="footer">
+        <div class="container">
+            <p class="pull-left">&copy; Robot Fest <?= date('Y') ?>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
+            <p class="pull-right"><?= Yii::powered() ?></p>
+        </div>
+    </footer>
 
-<?php $this->endBody() ?>
-</body>
+    <?php $this->endBody() ?>
+  </body>
 </html>
 <?php $this->endPage() ?>

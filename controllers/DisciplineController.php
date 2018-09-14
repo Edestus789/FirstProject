@@ -1,5 +1,7 @@
 <?php
 
+//  Discipline Controller
+
 namespace app\controllers;
 
 use Yii;
@@ -15,8 +17,8 @@ class DisciplineController extends Controller
 {
 
   /**
-   * {@inheritdoc}
-   */
+    * {@inheritdoc}
+    */
   public function behaviors()
   {
       return [
@@ -29,146 +31,173 @@ class DisciplineController extends Controller
       ];
   }
 
-    /**
-     * {@inheritdoc}
-     */
-     public function actions($language='')
-     {
-       $session = Yii::$app->session;
-       switch ($language) {
+  /**
+    * Buffer current language.
+    * {@inheritdoc}
+    */
+  public function actions()
+  {
+      $request = Yii::$app->request;
+      $get = $request->get('language','');
+
+      $session = Yii::$app->session;
+
+      switch ($get) {
          case 'en':
-           \Yii::$app->language = 'en';
-           $session->set('language', 'en');
+             \Yii::$app->language = 'en';
+             $session->set('language', 'en');
          break;
 
          case 'ru':
-           \Yii::$app->language = 'ru';
-           $session->set('language', 'ru');
+             \Yii::$app->language = 'ru';
+             $session->set('language', 'ru');
          break;
 
          case '':
-           \Yii::$app->language  = $session->get('language');
+            \Yii::$app->language  = $session->get('language');
          break;
 
          default:
          break;
-       }
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
-        ];
-    }
+      }
 
-    /**
-     * Finds the Robot model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return DisciplineClass the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
+      $session->close();
+
+      return [
+          'error' => [
+              'class' => 'yii\web\ErrorAction',
+          ],
+          'captcha' => [
+              'class' => 'yii\captcha\CaptchaAction',
+              'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+          ],
+      ];
+  }
+
+  /**
+    * Finds the Discipline model based on its primary key value.
+    * If the model is not found, a 404 HTTP exception will be thrown.
+    * @param integer $id
+    * @return DisciplineClass the loaded model
+    * @throws NotFoundHttpException if the model cannot be found
+    */
+  protected function findModel($id='')
+  {
+      $id = $this->bufID($id);
+
       $model = DisciplineClass::findOne($id);
 
-        if ($model !== null) {
-            return $model;
-        }
-        throw new NotFoundHttpException('The requested page does not exist.');
-    }
+      if ($model !== null) {
+          return $model;
+      }
 
-    /**
-     * Lists all DisciplineClass models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
+      throw new NotFoundHttpException('The requested page does not exist.');
+  }
 
-        $searchModel = new DisciplineSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+  /**
+    * Buffer id in session.
+    * @param integer $id
+    * @return integer $id
+    */
+  protected function bufID($id)
+  {
+      $session = Yii::$app->session;
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
+      if ($id == ''){
+          $id = $session->get('id');
+      }
+      else {
+          $session->set('id', $id);
+      }
 
-    /**
-     * Displays a single DisciplineClass model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+      $session->close();
 
-    /**
-     * Creates a new DisciplineClass model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new DisciplineClass();
+      return $id;
+  }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+  /**
+    * Lists all DisciplineClass models.
+    * @return mixed
+    */
+  public function actionIndex()
+  {
+      $searchModel = new DisciplineSearch();
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
+      $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-    /**
-     * Updates an existing DisciplineClass model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
+      return $this->render('index', [
+          'searchModel' => $searchModel,
+          'dataProvider' => $dataProvider,
+      ]);
+  }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+  /**
+    * Displays a single DisciplineClass model.
+    * @param integer $id
+    * @return mixed
+    * @throws NotFoundHttpException if the model cannot be found
+    */
+  public function actionView($id='')
+  {
+      $id = $this->bufID($id);
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
+      return $this->render('view', [
+          'model' => $this->findModel($id),
+      ]);
+  }
 
-    /**
-     * Deletes an existing DisciplineClass model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
+  /**
+    * Creates a new DisciplineClass model.
+    * If creation is successful, the browser will be redirected to the 'view' page.
+    * @return mixed
+    */
+  public function actionCreate()
+  {
+      $model = new DisciplineClass();
 
-        return $this->redirect(['index']);
-    }
+      if ($model->load(Yii::$app->request->post()) && $model->save()) {
+          return $this->redirect(['view', 'id' => $model->id]);
+      }
 
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
+      return $this->render('create', [
+          'model' => $model,
+      ]);
+  }
+
+  /**
+    * Updates an existing DisciplineClass model.
+    * If update is successful, the browser will be redirected to the 'view' page.
+    * @param integer $id
+    * @return mixed
+    * @throws NotFoundHttpException if the model cannot be found
+    */
+  public function actionUpdate($id='')
+  {
+      $id = $this->bufID($id);
+      $model = $this->findModel($id);
+
+      if ($model->load(Yii::$app->request->post()) && $model->save()) {
+          return $this->redirect(['view', 'id' => $model->id]);
+      }
+      return $this->render('update', [
+          'model' => $model,
+      ]);
+  }
+
+  /**
+   * Deletes an existing DisciplineClass model.
+   * If deletion is successful, the browser will be redirected to the 'index' page.
+   * @param integer $id
+   * @return mixed
+   * @throws NotFoundHttpException if the model cannot be found
+   */
+  public function actionDelete($id='')
+  {
+      $id = $this->bufID($id);
+      $this->findModel($id)->delete();
+
+      return $this->redirect(['index']);
+  }
 }
+
+?>

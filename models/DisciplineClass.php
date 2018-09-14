@@ -1,32 +1,31 @@
 <?php
 
+//  Discipline Model
+
 namespace app\models;
 
 use Yii;
 
 /**
- * This is the model class for table "robot".
- *
- * @property int $id
- * @property string $YName
- * @property string $SName
- * @property string $Discipline
- * @property string $Platform
- * @property string $Weight
- */
+  * This is the model class for table "discipline".
+  *
+  * @property int $id
+  * @property string $Discipline
+  * @property string $Description
+  */
 class DisciplineClass extends \yii\db\ActiveRecord
 {
     /**
-     * {@inheritdoc}
-     */
+      * {@inheritdoc}
+      */
     public static function tableName()
     {
         return 'discipline';
     }
 
     /**
-     * {@inheritdoc}
-     */
+      * {@inheritdoc}
+      */
     public function rules()
     {
         return [
@@ -37,8 +36,8 @@ class DisciplineClass extends \yii\db\ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
-     */
+      * {@inheritdoc}
+      */
     public function attributeLabels()
     {
         return [

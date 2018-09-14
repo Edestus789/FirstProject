@@ -1,5 +1,7 @@
 <?php
 
+//  Discipline search Model
+
 namespace app\models;
 
 use Yii;
@@ -8,13 +10,13 @@ use yii\data\ActiveDataProvider;
 use app\models\DisciplineClass;
 
 /**
- * RobotSearch represents the model behind the search form of `app\models\Robot`.
- */
+  * DisciplineSearch represents the model behind the search form of `app\models\Robot`.
+  */
 class DisciplineSearch extends DisciplineClass
 {
     /**
-     * {@inheritdoc}
-     */
+      * {@inheritdoc}
+      */
     public function rules()
     {
         return [
@@ -24,27 +26,21 @@ class DisciplineSearch extends DisciplineClass
     }
 
     /**
-     * {@inheritdoc}
-     */
+      * {@inheritdoc}
+      */
     public function scenarios()
     {
-        // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
 
     /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
-     * @return ActiveDataProvider
-     */
+      * Creates data provider instance with search query applied
+      * @param array $params
+      * @return ActiveDataProvider
+      */
     public function search($params)
     {
-
         $query = DisciplineClass::find();
-
-        // add conditions that should always apply here
 
         $dataProviderDis = new ActiveDataProvider([
             'query' => $query,
@@ -53,12 +49,9 @@ class DisciplineSearch extends DisciplineClass
         $this->load($params);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
             return $dataProviderDis;
         }
 
-        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
         ]);
@@ -68,8 +61,4 @@ class DisciplineSearch extends DisciplineClass
 
         return $dataProviderDis;
     }
-
-
-
-
 }

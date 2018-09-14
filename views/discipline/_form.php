@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 use yii\widgets\ActiveField;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Robot */
+/* @var $model app\models\DisciplineClass */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 

@@ -6,6 +6,7 @@ use yii\grid\GridView;
 
 $this->title = Yii::$app->name.' '.Yii::t('common', 'Disciplines');
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="discipline-index">
 

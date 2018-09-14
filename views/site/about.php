@@ -10,9 +10,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-about">
     <h1><?= Html::encode($this->title) ?></h1>
     <p>
-<?php
+    <?php
        echo Yii::t('common', 'This page about ');
        echo Yii::$app->name;
-?> .
+    ?> .
     </p>
 </div>

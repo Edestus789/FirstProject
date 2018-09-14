@@ -5,6 +5,7 @@ use yii\grid\GridView;
 
 $this->title = Yii::$app->name;
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="robot-index">
     <div class="jumbotron">
@@ -14,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
           <?= Html::a(Yii::t('common', 'Create Robot'), ['create'], ['class' => 'btn btn-success']) ?>
       </p>
     <div class="body-content">
+
       <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
@@ -33,5 +35,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
           ]);
        ?>
+
     </div>
 </div>
