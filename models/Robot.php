@@ -10,46 +10,59 @@ use Yii;
   * This is the model class for table "robot".
   *
   * @property int $id
-  * @property string $YName
+  * @property string $yname
   * @property string $SName
-  * @property string $Discipline
+  * @property string $discipline
   * @property string $Platform
   * @property string $Weight
   */
-class Robot extends \yii\db\ActiveRecord
-{
+class Robot extends \yii\db\ActiveRecord {
+
+    public $disName;
+
     /**
       * {@inheritdoc}
       */
-    public static function tableName()
-    {
-        return 'robot';
+    public static function tableName() {
+        return 'tbl_robot';
     }
 
     /**
       * {@inheritdoc}
       */
-    public function rules()
-    {
+    public function rules() {
+
         return [
-            [['YName', 'SName', 'Discipline', 'Platform'], 'string', 'max' => 30],
-            [['Weight'], 'string', 'max' => 10],
-            [['YName', 'Discipline', 'Platform'], 'required'],
+            [['id'], 'integer'],
+            [['discipline'], 'string'],
+            [['yname', 'sname','platform'], 'string', 'max' => 30],
+            [['weight'], 'string', 'max' => 10],
+            [['yname', 'discipline', 'platform'], 'required'],
         ];
     }
 
+    public function getDis() {
+
+       return $this->hasOne(Discipline::className(), ['id' => 'discipline']);
+    }
+
+    public function getDisName() {
+
+       return $this->dis->Name;
+    }
+
     /**
       * {@inheritdoc}
       */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
+
         return [
             'id' => 'ID',
-            'YName' => 'Yname',
-            'SName' => 'Sname',
-            'Discipline' => 'Discipline',
-            'Platform' => 'Platform',
-            'Weight' => 'Weight',
+            'yname' => Yii::t('common', 'Your name'),
+            'sname' => 'sname',
+            'discipline' => Yii::t('common', 'Discipline'),
+            'platform' => Yii::t('common', 'Platform'),
+            'weight' => 'weight',
         ];
     }
 }

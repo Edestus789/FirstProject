@@ -5,9 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'language' => 'ru',
-    // 'language' => 'en',
-    // 'sourceLanguage' => 'en',
-
+    'sourceLanguage' => 'en',
     'name' => 'Robot Fest',
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
@@ -17,17 +15,22 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'lengselect' =>[
+            'class' => 'app\components\LengSelect',
+        ],
+        'dinamiclist' =>[
+            'class' => 'app\components\DinamicList',
+        ],
         'i18n' => [
             'translations' => [
                 'common*' => [
-                   'sourceLanguage' => 'en',
-                    'class' => 'yii\i18n\PhpMessageSource',
-                    'basePath' => '@app/messages',
+                  'sourceLanguage' => 'en',
+                  'class' => 'yii\i18n\PhpMessageSource',
+                  'basePath' => '@app/messages',
                 ],
             ],
         ],
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'isgHB9J28hGbgGmrE0b_CtNQe47M8rzS',
         ],
         'cache' => [
@@ -42,9 +45,6 @@ $config = [
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
         'log' => [
@@ -62,19 +62,16 @@ $config = [
 ];
 
 if (YII_ENV_DEV) {
-    // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
-    $config['modules']['debug'] = [
+    $config['modules']['debug'] =
+    [
         'class' => 'yii\debug\Module',
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 
     $config['bootstrap'][] = 'gii';
-    $config['modules']['gii'] = [
+    $config['modules']['gii'] =
+    [
         'class' => 'yii\gii\Module',
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }
 

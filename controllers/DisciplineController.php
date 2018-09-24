@@ -9,195 +9,151 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
-use app\models\DisciplineClass;
+use app\models\Discipline;
 use app\models\DisciplineSearch;
 use yii\web\NotFoundHttpException;
 
-class DisciplineController extends Controller
-{
+class DisciplineController extends Controller {
 
-  /**
-    * {@inheritdoc}
-    */
-  public function behaviors()
-  {
-      return [
-          'verbs' => [
-              'class' => VerbFilter::className(),
-              'actions' => [
-                  'delete' => ['POST'],
-              ],
-          ],
-      ];
-  }
+    /**
+      * {@inheritdoc}
+      */
+    public function beforeAction($action) {
 
-  /**
-    * Buffer current language.
-    * {@inheritdoc}
-    */
-  public function actions()
-  {
-      $request = Yii::$app->request;
-      $get = $request->get('language','');
+        Yii::$app->lengselect->select();
 
-      $session = Yii::$app->session;
+        return parent::beforeAction($action);
+     }
 
-      switch ($get) {
-         case 'en':
-             \Yii::$app->language = 'en';
-             $session->set('language', 'en');
-         break;
+    /**
+      * {@inheritdoc}
+      */
+    public function behaviors() {
 
-         case 'ru':
-             \Yii::$app->language = 'ru';
-             $session->set('language', 'ru');
-         break;
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
 
-         case '':
-            \Yii::$app->language  = $session->get('language');
-         break;
+    /**
+      * {@inheritdoc}
+      */
+    public function actions() {
 
-         default:
-         break;
-      }
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+            'captcha' => [
+                'class' => 'yii\captcha\CaptchaAction',
+                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+            ],
+        ];
+    }
 
-      $session->close();
+    /**
+      * Finds the Discipline model based on its primary key value.
+      * If the model is not found, a 404 HTTP exception will be thrown.
+      * @param integer $id
+      * @return Discipline the loaded model
+      * @throws NotFoundHttpException if the model cannot be found
+      */
+    protected function findModel($id) {
 
-      return [
-          'error' => [
-              'class' => 'yii\web\ErrorAction',
-          ],
-          'captcha' => [
-              'class' => 'yii\captcha\CaptchaAction',
-              'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-          ],
-      ];
-  }
+        $model = Discipline::findOne($id);
 
-  /**
-    * Finds the Discipline model based on its primary key value.
-    * If the model is not found, a 404 HTTP exception will be thrown.
-    * @param integer $id
-    * @return DisciplineClass the loaded model
-    * @throws NotFoundHttpException if the model cannot be found
-    */
-  protected function findModel($id='')
-  {
-      $id = $this->bufID($id);
+        if ($model !== null) {
+            return $model;
+        }
 
-      $model = DisciplineClass::findOne($id);
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
 
-      if ($model !== null) {
-          return $model;
-      }
+    /**
+      * Lists all Discipline models.
+      * @return mixed
+      */
+    public function actionIndex() {
 
-      throw new NotFoundHttpException('The requested page does not exist.');
-  }
+        $searchModel = new DisciplineSearch();
 
-  /**
-    * Buffer id in session.
-    * @param integer $id
-    * @return integer $id
-    */
-  protected function bufID($id)
-  {
-      $session = Yii::$app->session;
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-      if ($id == ''){
-          $id = $session->get('id');
-      }
-      else {
-          $session->set('id', $id);
-      }
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
-      $session->close();
+    /**
+      * Displays a single Discipline model.
+      * @param integer $id
+      * @return mixed
+      * @throws NotFoundHttpException if the model cannot be found
+      */
+    public function actionView($id) {
 
-      return $id;
-  }
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
 
-  /**
-    * Lists all DisciplineClass models.
-    * @return mixed
-    */
-  public function actionIndex()
-  {
-      $searchModel = new DisciplineSearch();
+    /**
+      * Creates a new Discipline model.
+      * If creation is successful, the browser will be redirected to the 'view' page.
+      * @return mixed
+      */
+    public function actionCreate() {
 
-      $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $model = new Discipline();
 
-      return $this->render('index', [
-          'searchModel' => $searchModel,
-          'dataProvider' => $dataProvider,
-      ]);
-  }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
 
-  /**
-    * Displays a single DisciplineClass model.
-    * @param integer $id
-    * @return mixed
-    * @throws NotFoundHttpException if the model cannot be found
-    */
-  public function actionView($id='')
-  {
-      $id = $this->bufID($id);
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
 
-      return $this->render('view', [
-          'model' => $this->findModel($id),
-      ]);
-  }
+    /**
+      * Updates an existing Discipline model.
+      * If update is successful, the browser will be redirected to the 'view' page.
+      * @param integer $id
+      * @return mixed
+      * @throws NotFoundHttpException if the model cannot be found
+      */
+    public function actionUpdate($id) {
 
-  /**
-    * Creates a new DisciplineClass model.
-    * If creation is successful, the browser will be redirected to the 'view' page.
-    * @return mixed
-    */
-  public function actionCreate()
-  {
-      $model = new DisciplineClass();
+        $model = $this->findModel($id);
 
-      if ($model->load(Yii::$app->request->post()) && $model->save()) {
-          return $this->redirect(['view', 'id' => $model->id]);
-      }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
 
-      return $this->render('create', [
-          'model' => $model,
-      ]);
-  }
+        return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
 
-  /**
-    * Updates an existing DisciplineClass model.
-    * If update is successful, the browser will be redirected to the 'view' page.
-    * @param integer $id
-    * @return mixed
-    * @throws NotFoundHttpException if the model cannot be found
-    */
-  public function actionUpdate($id='')
-  {
-      $id = $this->bufID($id);
-      $model = $this->findModel($id);
+    /**
+      * Deletes an existing Discipline model.
+      * If deletion is successful, the browser will be redirected to the 'index' page.
+      * @param integer $id
+      * @return mixed
+      * @throws NotFoundHttpException if the model cannot be found
+      */
+    public function actionDelete($id) {
 
-      if ($model->load(Yii::$app->request->post()) && $model->save()) {
-          return $this->redirect(['view', 'id' => $model->id]);
-      }
-      return $this->render('update', [
-          'model' => $model,
-      ]);
-  }
+        $this->findModel($id)->delete();
 
-  /**
-   * Deletes an existing DisciplineClass model.
-   * If deletion is successful, the browser will be redirected to the 'index' page.
-   * @param integer $id
-   * @return mixed
-   * @throws NotFoundHttpException if the model cannot be found
-   */
-  public function actionDelete($id='')
-  {
-      $id = $this->bufID($id);
-      $this->findModel($id)->delete();
-
-      return $this->redirect(['index']);
-  }
+        return $this->redirect(['index']);
+    }
 }
 
 ?>

@@ -12,24 +12,25 @@ use app\models\Robot;
 /**
   * RobotSearch represents the model behind the search form of `app\models\Robot`.
   */
-class RobotSearch extends Robot
-{
+class RobotSearch extends Robot {
+
     /**
       * {@inheritdoc}
       */
-    public function rules()
-    {
+    public function rules() {
+
         return [
             [['id'], 'integer'],
-            [['YName', 'SName', 'Discipline', 'Platform', 'Weight'], 'safe'],
+            [['disName'], 'safe'],
+            [['yname', 'sname', 'platform', 'weight'], 'safe'],
         ];
     }
 
     /**
       * {@inheritdoc}
       */
-    public function scenarios()
-    {
+    public function scenarios() {
+
         return Model::scenarios();
     }
 
@@ -40,21 +41,28 @@ class RobotSearch extends Robot
       *
       * @return ActiveDataProvider
       */
-    public function search($params)
-    {
-        $query = Robot::find()
-        ->select('t1.id as id,
-          t1.YName as YName,
-          t1.SName as SName,
-          t2.Discipline as Discipline,
-          t1.Platform as Platform,
-          t1.Weight as Weight')
-        ->from('robot t1')
-        ->innerJoin('discipline t2', 't1.Discipline = t2.id')
-        ->orderBy('id');
+    public function search($params) {
+
+        $query = Robot::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+        ]);
+
+        $dataProvider->setSort([
+          'defaultOrder' => ['id' => SORT_ASC],
+          'attributes' => [
+              'id',
+              'yname',
+              'sname',
+              'disName' => [
+                  'asc' => ['tbl_discipline.Name' => SORT_ASC],
+                  'desc' => ['tbl_discipline.Name' => SORT_DESC],
+                  'label' => 'disName'
+              ],
+              'platform',
+              'weight',
+            ],
         ]);
 
         $this->load($params);
@@ -67,11 +75,14 @@ class RobotSearch extends Robot
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'YName', $this->YName])
-            ->andFilterWhere(['like', 'SName', $this->SName])
-            ->andFilterWhere(['like', 'Discipline', $this->Discipline])
-            ->andFilterWhere(['like', 'Platform', $this->Platform])
-            ->andFilterWhere(['like', 'Weight', $this->Weight]);
+        $query->andFilterWhere(['like', 'yname', $this->yname])
+          ->andFilterWhere(['like', 'sname', $this->sname])
+          ->andFilterWhere(['like', 'platform', $this->platform])
+          ->andFilterWhere(['like', 'weight', $this->weight]);
+
+        $query->joinWith(['dis' => function ($q) {
+            $q->where('tbl_discipline.Name LIKE "%' . $this->disName . '%"');
+        }]);
 
         return $dataProvider;
     }

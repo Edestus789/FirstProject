@@ -7,29 +7,28 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\DisciplineClass;
+use app\models\Discipline;
 
 /**
   * DisciplineSearch represents the model behind the search form of `app\models\Robot`.
   */
-class DisciplineSearch extends DisciplineClass
-{
+class DisciplineSearch extends Discipline {
     /**
       * {@inheritdoc}
       */
-    public function rules()
-    {
+    public function rules() {
+
         return [
             [['id'], 'integer'],
-            [['Discipline', 'Description'], 'safe'],
+            [['name', 'description'], 'safe'],
         ];
     }
 
     /**
       * {@inheritdoc}
       */
-    public function scenarios()
-    {
+    public function scenarios() {
+
         return Model::scenarios();
     }
 
@@ -38,9 +37,9 @@ class DisciplineSearch extends DisciplineClass
       * @param array $params
       * @return ActiveDataProvider
       */
-    public function search($params)
-    {
-        $query = DisciplineClass::find();
+    public function search($params) {
+
+        $query = Discipline::find();
 
         $dataProviderDis = new ActiveDataProvider([
             'query' => $query,
@@ -56,8 +55,8 @@ class DisciplineSearch extends DisciplineClass
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'Discipline', $this->Discipline])
-            ->andFilterWhere(['like', 'Description', $this->Description]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+          ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProviderDis;
     }
