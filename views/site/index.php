@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
+use yii\helpers\Url;
+
 $this->title = Yii::$app->name;
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -13,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <h1><?= Html::encode($this->title) ?></h1>
     </div>
       <p>
-          <?= Html::a(Yii::t('common', 'Create Robot'), ['create'], ['class' => 'btn btn-success']) ?>
+          <?= Html::a(Yii::t('common', 'Create Robot'), Url::to(['@web/site/create']), ['class' => 'btn btn-success']) ?>
       </p>
     <div class="body-content">
 

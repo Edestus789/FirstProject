@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 $this->title = Yii::t('common', 'Update Robot: '). $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Robot'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Robot'), 'url' => [Yii::$app->homeUrl]];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 

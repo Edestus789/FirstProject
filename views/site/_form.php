@@ -5,8 +5,9 @@ use yii\widgets\ActiveForm;
 use yii\widgets\ActiveField;
 
 $request = Yii::$app->request;
-$itemsDis = Yii::$app->dinamiclist->getList($model, $request);
-
+// $itemsDis = Yii::$app->dinamiclist->getList($model, $request);
+$itemsDis = \yii\helpers\ArrayHelper::map(\app\models\Discipline::find()
+  ->all(), 'id', 'name');
 ?>
 
 <div class="robot-form">
@@ -25,7 +26,7 @@ $itemsDis = Yii::$app->dinamiclist->getList($model, $request);
 
     <?= $form->field($model, 'discipline')
       ->dropDownList($itemsDis,
-       [($request->get('r','')=='site/update')?"":'prompt' => Yii::t('common', 'Сhoose a discipline')])
+       ['prompt' => Yii::t('common', 'Сhoose a discipline')])
       ->label(Yii::t('common', 'Discipline').' '.Html::a(Yii::t('common', '[edit]'), ['discipline/index'], ['class' => 'profile-link']));
     ?>
 

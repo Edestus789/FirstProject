@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                       'delete' => function($data) { return $data->id !== 1;}
                   ],
               'template' => '{view} {update} {delete}',
+
             ],
           ],
       ]); ?>

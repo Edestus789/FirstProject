@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 $this->title = Yii::t('common', 'Create Robot');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Robot'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Robot'), 'url' => [Yii::$app->homeUrl]];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -14,5 +14,5 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
-    
+
 </div>

@@ -6,6 +6,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 
@@ -30,7 +31,7 @@ AppAsset::register($this);
 
             NavBar::begin([
                     'brandLabel' => Yii::$app->name,
-                    'brandUrl' => Yii::$app->homeUrl,
+                    'brandUrl' => Url::to(['@web/site/index']),
                     'options' => [
                         'class' => 'navbar-inverse navbar-fixed-top',
                     ],
@@ -38,12 +39,12 @@ AppAsset::register($this);
                 echo Nav::widget([
                     'options' => ['class' => 'navbar-nav navbar-right'],
                     'items' => [
-                        ['label' => Yii::t('common', 'Home'), 'url' => ['/site/index']],
+                        ['label' => Yii::t('common', 'Home'), 'url' => [Yii::$app->homeUrl]],
                         [
                             'label' => (\Yii::$app->language == 'ru')?'Go to English':'Перейти на Русский',
                             'url' => (\Yii::$app->language == 'ru')?
-                            [\Yii::$app->controller->route,'language' => 'en',  'id' => Yii::$app->request->get('id') ]:
-                            [\Yii::$app->controller->route,'language' => 'ru',  'id' => Yii::$app->request->get('id') ],
+                            ['en/'.\Yii::$app->controller->route,'language' => 'en',  'id' => Yii::$app->request->get('id') ]:
+                            ['ru/'.\Yii::$app->controller->route,'language' => 'ru',  'id' => Yii::$app->request->get('id') ],
                         ],
                     ],
                 ]);
@@ -54,6 +55,7 @@ AppAsset::register($this);
             <div class="container">
 
               <?= Breadcrumbs::widget([
+                  'homeLink' => ['label' => 'Главная', 'url' => Url::to(['@web/site/index'])],
                   'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
               ]) ?>
 

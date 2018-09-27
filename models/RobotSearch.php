@@ -72,7 +72,7 @@ class RobotSearch extends Robot {
         }
 
         $query->andFilterWhere([
-            'id' => $this->id,
+            'tbl_robot.id' => $this->id,
         ]);
 
         $query->andFilterWhere(['like', 'yname', $this->yname])
