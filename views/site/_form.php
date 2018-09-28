@@ -39,7 +39,7 @@ $itemsDis = \yii\helpers\ArrayHelper::map(\app\models\Discipline::find()
       ->textInput(['maxlength' => true])
       ->label(Yii::t('common', 'Weight'))
     ?>
-
+    
     <div class="form-group">
         <?= Html::submitButton(Yii::t('common', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>

@@ -8,11 +8,18 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Robot;
+use app\models\Discipline;
 
 /**
   * RobotSearch represents the model behind the search form of `app\models\Robot`.
   */
 class RobotSearch extends Robot {
+
+    public $disName;
+
+    // public function getDis() {
+    //     return  parent::getDis();
+    // }
 
     /**
       * {@inheritdoc}
@@ -20,7 +27,7 @@ class RobotSearch extends Robot {
     public function rules() {
 
         return [
-            [['id'], 'integer'],
+            // [['id'], 'integer'],
             [['disName'], 'safe'],
             [['yname', 'sname', 'platform', 'weight'], 'safe'],
         ];
@@ -56,8 +63,8 @@ class RobotSearch extends Robot {
               'yname',
               'sname',
               'disName' => [
-                  'asc' => ['tbl_discipline.Name' => SORT_ASC],
-                  'desc' => ['tbl_discipline.Name' => SORT_DESC],
+                  'asc' => [Discipline::tableName().'.name' => SORT_ASC],
+                  'desc' => [Discipline::tableName().'.name' => SORT_DESC],
                   'label' => 'disName'
               ],
               'platform',
@@ -71,17 +78,13 @@ class RobotSearch extends Robot {
             return $dataProvider;
         }
 
-        $query->andFilterWhere([
-            'tbl_robot.id' => $this->id,
-        ]);
-
         $query->andFilterWhere(['like', 'yname', $this->yname])
           ->andFilterWhere(['like', 'sname', $this->sname])
           ->andFilterWhere(['like', 'platform', $this->platform])
           ->andFilterWhere(['like', 'weight', $this->weight]);
 
         $query->joinWith(['dis' => function ($q) {
-            $q->where('tbl_discipline.Name LIKE "%' . $this->disName . '%"');
+            $q->where(Discipline::tableName().'.name LIKE "%' . $this->disName . '%"');
         }]);
 
         return $dataProvider;

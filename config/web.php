@@ -15,69 +15,53 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
-
-
-
-
       'urlManager' => [
           'enablePrettyUrl' => true,
           // 'enablePrettyUrl' => false,
           // 'showScriptName' => true,
+          // 'suffix' => '.html',
           'showScriptName' => false,
           'enableStrictParsing' => true,
-          //  // 'suffix' => '.html',
           'class'=>'app\components\LangUrlManager',
           'rules' => [
 
-          '/' => 'site/index',
+              '/' => '/site/index',
 
-          "/en" => '/en/site/index',
-          "/ru" => '/ru/site/index',
+              "/en" => '/en/site/index',
+              "/ru" => '/ru/site/index',
 
-          'discipline' => 'discipline/index',
+              'discipline' => 'discipline/index',
 
-          "/en/discipline" => '/en/discipline/index',
-          "/ru/discipline" => '/ru/discipline/index',
+              "/en/discipline" => '/en/discipline/index',
+              "/ru/discipline" => '/ru/discipline/index',
 
+              '<language:\w+>/discipline/<action:\w+>/<id:\d+>/'=> '<language>/discipline/<action>',
 
-          // '/en/<sort:\w+>' => '/en/<sort>',
-          // '/ru/<sort:\w+>' => '/ru/<sort>',
-          //
-          // '/en/discipline/<sort:\w+>'=> '/en/discipline<sort>',
-          // '/ru/discipline/<sort:\w+>'=> '/ru/discipline<sort>',
+              '/discipline/<action:\w+>/<id:\d+>/'=> 'discipline/<action>',
 
+              'discipline/<action:\w+>'=> 'discipline/<action>',
 
+              '<language:\w+>/<action:\w+>/<id:\d+>' => '<language>/site/<action>',
 
+              '<action:\w+>/<id:\d+>' => 'site/<action>',
 
-          // '<language:\w+>/<action:\w+>/<id:\d+>'=> '/discipline/<action>/<language>',
-          //
-          // '<language:\w+>/<action:\w+>/<id:\d+>' => '/site/<action>/<language>',
-          //
-          //
-          //
+              '<action:\w+>' => 'site/<action>',
 
+              // '/en/<sort:\w+>' => '/en/<sort>',
+              // '/ru/<sort:\w+>' => '/ru/<sort>',
+              //
+              // '/en/discipline/<sort:\w+>'=> '/en/discipline<sort>',
+              // '/ru/discipline/<sort:\w+>'=> '/ru/discipline<sort>',
 
+              // '<language:\w+>/<action:\w+>/<id:\d+>'=> '/discipline/<action>/<language>',
+              //
+              // '<language:\w+>/<action:\w+>/<id:\d+>' => '/site/<action>/<language>',
 
-          '<language:\w+>/discipline/<action:\w+>/<id:\d+>/'=> '<language>/discipline/<action>',
-
-          '/discipline/<action:\w+>/<id:\d+>/'=> 'discipline/<action>',
-
-          'discipline/<action:\w+>'=> 'discipline/<action>',
-
-          '<language:\w+>/<action:\w+>/<id:\d+>/' => '<language>/site/<action>',
-
-          '/<action:\w+>/<id:\d+>/' => 'site/<action>',
-
-          '<action:\w+>' => 'site/<action>',
-
-
-          // [
-          //  'class' => '\app\components\LangUrlManager',
-          // ],
+              // [
+              //  'class' => '\app\components\LangUrlManager',
+              // ],
           ],
         ],
-
-
         'lengselect' =>[
             'class' => 'app\components\LengSelect',
         ],

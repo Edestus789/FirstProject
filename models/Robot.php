@@ -18,7 +18,7 @@ use Yii;
   */
 class Robot extends \yii\db\ActiveRecord {
 
-    public $disName;
+    public $name;
 
     /**
       * {@inheritdoc}
@@ -48,7 +48,7 @@ class Robot extends \yii\db\ActiveRecord {
 
     public function getDisName() {
 
-       return $this->dis->Name;
+       return $this->dis->name;
     }
 
     /**

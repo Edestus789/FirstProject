@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 use yii\helpers\Url;
+use app\models\RobotSearch;
 
 $this->title = Yii::$app->name;
 $this->params['breadcrumbs'][] = $this->title;
@@ -15,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <h1><?= Html::encode($this->title) ?></h1>
     </div>
       <p>
-          <?= Html::a(Yii::t('common', 'Create Robot'), Url::to(['@web/site/create']), ['class' => 'btn btn-success']) ?>
+          <?= Html::a(Yii::t('common', 'Create Robot'), Url::toRoute(['site/create']), ['class' => 'btn btn-success']) ?>
       </p>
     <div class="body-content">
 
@@ -28,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['attribute' =>'yname', 'label' => Yii::t('common', 'Your name')],
                 ['attribute' =>'sname', 'label' => Yii::t('common', 'SupV name')],
                 ['attribute' =>'disName',
-                  'value' => function($data) {return $data->dis->name;},
+                  'value' => 'dis.name',
                   'label' => Yii::t('common', 'Discipline')
                 ],
                 ['attribute' =>'platform', 'label' => Yii::t('common', 'Platform')],

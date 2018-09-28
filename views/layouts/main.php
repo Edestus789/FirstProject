@@ -55,7 +55,7 @@ AppAsset::register($this);
             <div class="container">
 
               <?= Breadcrumbs::widget([
-                  'homeLink' => ['label' => 'Главная', 'url' => Url::to(['@web/site/index'])],
+                  'homeLink' => ['label' => Yii::t('common', 'Home'), 'url' => Url::to(['@web/site/index'])],
                   'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
               ]) ?>
 
