@@ -43,8 +43,8 @@ AppAsset::register($this);
                         [
                             'label' => (\Yii::$app->language == 'ru')?'Go to English':'Перейти на Русский',
                             'url' => (\Yii::$app->language == 'ru')?
-                            ['en/'.\Yii::$app->controller->route,'language' => 'en',  'id' => Yii::$app->request->get('id') ]:
-                            ['ru/'.\Yii::$app->controller->route,'language' => 'ru',  'id' => Yii::$app->request->get('id') ],
+                            [Yii::$app->controller->route,'language' => 'en',  'id' => Yii::$app->request->get('id') ]:
+                            [Yii::$app->controller->route,'language' => 'ru',  'id' => Yii::$app->request->get('id') ],
                         ],
                     ],
                 ]);

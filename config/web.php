@@ -4,7 +4,7 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
-    'language' => 'ru',
+    'language' => 'en',
     'sourceLanguage' => 'en',
     'name' => 'Robot Fest',
     'id' => 'basic',
@@ -15,53 +15,25 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+
+
+
       'urlManager' => [
-          'enablePrettyUrl' => true,
+          // 'enablePrettyUrl' => true,
           // 'enablePrettyUrl' => false,
-          // 'showScriptName' => true,
+          // 'showScriptName' => false,
           // 'suffix' => '.html',
           'showScriptName' => false,
           'enableStrictParsing' => true,
-          'class'=>'app\components\LangUrlManager',
+          // 'class'=>'app\components\LangUrlManager',
           'rules' => [
-
-              '/' => '/site/index',
-
-              "/en" => '/en/site/index',
-              "/ru" => '/ru/site/index',
-
-              'discipline' => 'discipline/index',
-
-              "/en/discipline" => '/en/discipline/index',
-              "/ru/discipline" => '/ru/discipline/index',
-
-              '<language:\w+>/discipline/<action:\w+>/<id:\d+>/'=> '<language>/discipline/<action>',
-
-              '/discipline/<action:\w+>/<id:\d+>/'=> 'discipline/<action>',
-
-              'discipline/<action:\w+>'=> 'discipline/<action>',
-
-              '<language:\w+>/<action:\w+>/<id:\d+>' => '<language>/site/<action>',
-
-              '<action:\w+>/<id:\d+>' => 'site/<action>',
-
+              '/' => 'site/index',
               '<action:\w+>' => 'site/<action>',
-
-              // '/en/<sort:\w+>' => '/en/<sort>',
-              // '/ru/<sort:\w+>' => '/ru/<sort>',
-              //
-              // '/en/discipline/<sort:\w+>'=> '/en/discipline<sort>',
-              // '/ru/discipline/<sort:\w+>'=> '/ru/discipline<sort>',
-
-              // '<language:\w+>/<action:\w+>/<id:\d+>'=> '/discipline/<action>/<language>',
-              //
-              // '<language:\w+>/<action:\w+>/<id:\d+>' => '/site/<action>/<language>',
-
-              // [
-              //  'class' => '\app\components\LangUrlManager',
-              // ],
           ],
         ],
+
+
+        
         'lengselect' =>[
             'class' => 'app\components\LengSelect',
         ],

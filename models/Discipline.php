@@ -36,10 +36,6 @@ class Discipline extends \yii\db\ActiveRecord {
         ];
     }
 
-    // public function getRob() {
-    //     return $this->hasMany(Robot::className(), ['discipline' => 'id']);
-    // }
-
     /**
       * {@inheritdoc}
       */
@@ -52,3 +48,5 @@ class Discipline extends \yii\db\ActiveRecord {
         ];
     }
 }
+
+?>

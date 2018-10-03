@@ -17,17 +17,12 @@ class RobotSearch extends Robot {
 
     public $disName;
 
-    // public function getDis() {
-    //     return  parent::getDis();
-    // }
-
     /**
       * {@inheritdoc}
       */
     public function rules() {
 
         return [
-            // [['id'], 'integer'],
             [['disName'], 'safe'],
             [['yname', 'sname', 'platform', 'weight'], 'safe'],
         ];
@@ -57,18 +52,18 @@ class RobotSearch extends Robot {
         ]);
 
         $dataProvider->setSort([
-          'defaultOrder' => ['id' => SORT_ASC],
-          'attributes' => [
-              'id',
-              'yname',
-              'sname',
-              'disName' => [
-                  'asc' => [Discipline::tableName().'.name' => SORT_ASC],
-                  'desc' => [Discipline::tableName().'.name' => SORT_DESC],
-                  'label' => 'disName'
-              ],
-              'platform',
-              'weight',
+            'defaultOrder' => ['id' => SORT_ASC],
+            'attributes' => [
+                'id',
+                'yname',
+                'sname',
+                'disName' => [
+                    'asc' => [Discipline::tableName().'.name' => SORT_ASC],
+                    'desc' => [Discipline::tableName().'.name' => SORT_DESC],
+                    'label' => 'disName'
+                ],
+                'platform',
+                'weight',
             ],
         ]);
 
@@ -79,14 +74,15 @@ class RobotSearch extends Robot {
         }
 
         $query->andFilterWhere(['like', 'yname', $this->yname])
-          ->andFilterWhere(['like', 'sname', $this->sname])
-          ->andFilterWhere(['like', 'platform', $this->platform])
-          ->andFilterWhere(['like', 'weight', $this->weight]);
-
-        $query->joinWith(['dis' => function ($q) {
+              ->andFilterWhere(['like', 'sname', $this->sname])
+              ->andFilterWhere(['like', 'platform', $this->platform])
+              ->andFilterWhere(['like', 'weight', $this->weight])
+              ->joinWith(['dis' => function ($q) {
             $q->where(Discipline::tableName().'.name LIKE "%' . $this->disName . '%"');
         }]);
 
         return $dataProvider;
     }
 }
+
+?>

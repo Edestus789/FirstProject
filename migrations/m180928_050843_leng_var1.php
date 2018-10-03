@@ -31,7 +31,7 @@ class m180928_050843_leng_var1 extends Migration
     public function up()
     {
 
-        $sql = "DROP TRIGGER work.mng_collision;";
+        $sql = "DROP TRIGGER IF EXISTS work.mng_collision;";
         $this->execute($sql);
 
         $this->renameTable('tbl_robot', 'old_tbl_robot');
@@ -41,46 +41,35 @@ class m180928_050843_leng_var1 extends Migration
 
         $this->addColumn('tbl_robot', 'leng', $this->string('2')->notNull()->defaultValue('en'));
 
-
-
-
-        // $sql = "DELIMITER | ";
-        // $this->execute($sql);
-
-        $sql = " CREATE TRIGGER mng_collision AFTER DELETE ON tbl_discipline
+        $sql = "
+                CREATE TRIGGER mng_collision AFTER DELETE ON tbl_discipline
                 FOR EACH ROW BEGIN
                   UPDATE tbl_robot SET discipline = DEFAULT WHERE discipline IS NULL;
-                END; | ";
+                END;
+   ";
 
         $this->execute($sql);
-
-        // $sql = "DELIMITER ; ";
-        // $this->execute($sql);
 
     }
 
     public function down()
     {
 
-        $sql = "DROP TRIGGER work.mng_collision;";
+        $sql = "DROP TRIGGER IF EXISTS work.mng_collision;";
         $this->execute($sql);
 
         $this->dropTable('tbl_robot');
 
         $this->renameTable('old_tbl_robot', 'tbl_robot');
 
-        // $sql = "DELIMITER | ";
-        // $this->execute($sql);
-
-        $sql = " CREATE TRIGGER mng_collision AFTER DELETE ON tbl_discipline
+        $sql = "
+                CREATE TRIGGER mng_collision AFTER DELETE ON tbl_discipline
                 FOR EACH ROW BEGIN
                   UPDATE tbl_robot SET discipline = DEFAULT WHERE discipline IS NULL;
-                END; | ";
+                END;
+ ";
 
         $this->execute($sql);
-
-        // $sql = "DELIMITER ; ";
-        // $this->execute($sql);
 
           // echo "m180928_050843_leng_var1 cannot be reverted.\n";
           // return false;

@@ -18,7 +18,7 @@ use Yii;
   */
 class Robot extends \yii\db\ActiveRecord {
 
-    public $name;
+    public $disName;
 
     /**
       * {@inheritdoc}
@@ -34,7 +34,7 @@ class Robot extends \yii\db\ActiveRecord {
 
         return [
             [['id'], 'integer'],
-            [['discipline'], 'string'],
+            [['discipline'], 'integer'],
             [['yname', 'sname','platform'], 'string', 'max' => 30],
             [['weight'], 'string', 'max' => 10],
             [['yname', 'discipline', 'platform'], 'required'],
@@ -66,3 +66,5 @@ class Robot extends \yii\db\ActiveRecord {
         ];
     }
 }
+
+?>

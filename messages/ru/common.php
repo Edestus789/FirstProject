@@ -3,13 +3,13 @@
 // Translation file EN -> RU
 
 return [
+    'Create Robot' =>'Создать запись',
+    'Your name' => 'Ваше имя',
     'I am a message!' => 'Я есть Грут!',
     'This page about ' => 'Эта страница о ',
     'About us' => 'О нас',
     'About ' => 'О ',
     'Home' => 'Главная',
-    'Create Robot' =>'Создать запись',
-    'Your name' => 'Ваше имя',
     'SupV name' =>'Имя руководителя',
     'Discipline' =>'Дисциплины',
     'Platform' =>'Тип платформы',

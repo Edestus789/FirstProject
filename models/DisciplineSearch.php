@@ -19,7 +19,6 @@ class DisciplineSearch extends Discipline {
     public function rules() {
 
         return [
-            [['id'], 'integer'],
             [['name', 'description'], 'safe'],
         ];
     }
@@ -56,8 +55,10 @@ class DisciplineSearch extends Discipline {
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-          ->andFilterWhere(['like', 'description', $this->description]);
+            ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProviderDis;
     }
 }
+
+?>

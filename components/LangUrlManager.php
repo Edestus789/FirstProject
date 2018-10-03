@@ -8,23 +8,36 @@ use yii\web\UrlManager;
 
 
 class LangUrlManager extends UrlManager {
+
     public function createUrl($params) {
 
-        $request = Yii::$app->request;
 
-        $session = Yii::$app->session;
+      $lang = Yii::$app->language;
+        // var_dump($lang);
+        // echo $lang;
+        // // $lang = 'ru';
 
-        $lang = (''!==$session->get('language'))?$session->get('language'):$request->get('language');
-        // $lang = Yii::$app->language;
+
+// echo !(is_null($lang));
 
         $url = parent::createUrl($params);
 
-        if(strpos($url, 'en')||strpos($url, 'ru')){
-          return $url;
-        }
+// echo $url;
 
-        return $url == '/' ? '/'.$lang  : '/'.$lang.$url;
+
+        if(strpos($url, $lang) === true){
+// echo "++++";
+            return $url;
+        } else {
+// echo "----";
+            // $urlOut = '/'.$lang.$url;
+            $urlOut = $lang.$url;
+// echo $urlOut;
+              // $urlOut = 'ru'.$url;
+            return ($urlOut!=NULL)?($urlOut):($url);
+        }
     }
+
 
     public function parseRequest($request) {
 
