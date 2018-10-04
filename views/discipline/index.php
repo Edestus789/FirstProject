@@ -29,10 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
                   'header'=> Yii::t('common', 'Actions'),
                   'headerOptions' => ['width' => '58'],
                   'visibleButtons' => [
-                          'delete' => function($data) { return $data->id !== 1;}
-                      ],
+                      'delete' => function($data) { return $data->id !== 1;}
+                  ],
                   'template' => '{view} {update} {delete}',
-
               ],
             ],
       ]); ?>

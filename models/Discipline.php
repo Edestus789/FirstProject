@@ -14,6 +14,7 @@ use Yii;
   * @property string $Description
   */
 class Discipline extends \yii\db\ActiveRecord {
+  
     /**
       * {@inheritdoc}
       */

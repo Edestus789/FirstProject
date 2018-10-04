@@ -15,25 +15,6 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
-
-
-
-      'urlManager' => [
-          // 'enablePrettyUrl' => true,
-          // 'enablePrettyUrl' => false,
-          // 'showScriptName' => false,
-          // 'suffix' => '.html',
-          'showScriptName' => false,
-          'enableStrictParsing' => true,
-          // 'class'=>'app\components\LangUrlManager',
-          'rules' => [
-              '/' => 'site/index',
-              '<action:\w+>' => 'site/<action>',
-          ],
-        ],
-
-
-        
         'lengselect' =>[
             'class' => 'app\components\LengSelect',
         ],

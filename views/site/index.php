@@ -29,15 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['attribute' =>'yname', 'label' => Yii::t('common', 'Your name')],
                 ['attribute' =>'sname', 'label' => Yii::t('common', 'SupV name')],
                 [
-                    'attribute'=>'disName',
-                    'label'=>Yii::t('common', 'Discipline'),
-                    'format'=>'text',
-                    'content'=> function($data){
-                        $DisName = $data->getDisName();
-                        return $DisName;
-                },
-                'filter'=> $itemsDis = \yii\helpers\ArrayHelper::map(\app\models\Discipline::find()
-                    ->all(), 'name', 'name'),
+                  'label'=>Yii::t('common', 'Discipline'),
+                    'attribute'=>'discipline',
+                    'value' => function($row){return $row->discip->name;},
+                    'filter'=> \yii\helpers\ArrayHelper::map(\app\models\Discipline::find()->all(), 'id', 'name'),
                 ],
                 ['attribute' =>'platform', 'label' => Yii::t('common', 'Platform')],
                 ['attribute' =>'weight', 'label' => Yii::t('common', 'Weight')],

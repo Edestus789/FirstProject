@@ -11,13 +11,13 @@ use yii\widgets\ActiveField;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'name')
-      ->textInput(['maxlength' => true])
-      ->label(Yii::t('common', 'Discipline'))
+        ->textInput(['maxlength' => true])
+        ->label(Yii::t('common', 'Discipline'))
     ?>
 
     <?= $form->field($model, 'description')
-      ->textInput(['maxlength' => true])
-      ->label(Yii::t('common', 'Description'))
+        ->textInput(['maxlength' => true])
+        ->label(Yii::t('common', 'Description'))
     ?>
 
     <div class="form-group">

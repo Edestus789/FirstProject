@@ -1,6 +1,6 @@
 <?php
 
-// Function language selection, application and retention.
+// Function - language selection, application and retention.
 
 namespace app\components;
 
@@ -19,10 +19,13 @@ class LengSelect extends Component {
         $cookiesReq = Yii::$app->request->cookies;
 
         if ($cookiesReq->get('language') !== null) {
-          $cookiesRes = Yii::$app->response->cookies;
+
+            $cookiesRes = Yii::$app->response->cookies;
+
             switch ($get) {
+
                 case 'en':
-                    \Yii::$app->language = 'en';
+                    Yii::$app->language = 'en';
                     $cookiesRes->add(new \yii\web\Cookie([
                         'name' => 'language',
                         'value' => 'en',
@@ -31,7 +34,7 @@ class LengSelect extends Component {
                 break;
 
                 case 'ru':
-                    \Yii::$app->language = 'ru';
+                    Yii::$app->language = 'ru';
                     $cookiesRes->add(new \yii\web\Cookie([
                         'name' => 'language',
                         'value' => 'ru',
@@ -40,7 +43,7 @@ class LengSelect extends Component {
                 break;
 
                 case '':
-                    \Yii::$app->language = $cookiesReq->get('language');
+                    Yii::$app->language = $cookiesReq->get('language');
                 break;
 
                 default:
@@ -48,19 +51,21 @@ class LengSelect extends Component {
             }
         }
         else {
+
             switch ($get) {
+
                 case 'en':
-                    \Yii::$app->language = 'en';
+                    Yii::$app->language = 'en';
                     $session->set('language', 'en');
                 break;
 
                 case 'ru':
-                    \Yii::$app->language = 'ru';
+                    Yii::$app->language = 'ru';
                     $session->set('language', 'ru');
                 break;
 
                 case '':
-                    \Yii::$app->language = $session->get('language');
+                    Yii::$app->language = $session->get('language');
                 break;
 
                 default:

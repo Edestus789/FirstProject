@@ -15,7 +15,7 @@ use app\models\Discipline;
   */
 class RobotSearch extends Robot {
 
-    public $disName;
+    public $discipName;
 
     /**
       * {@inheritdoc}
@@ -23,8 +23,8 @@ class RobotSearch extends Robot {
     public function rules() {
 
         return [
-            [['disName'], 'safe'],
-            [['yname', 'sname', 'platform', 'weight'], 'safe'],
+            [['discipline'], 'integer'],
+            [['yname', 'sname', 'discipline', 'platform', 'weight', 'discipName'], 'safe'],
         ];
     }
 
@@ -45,31 +45,28 @@ class RobotSearch extends Robot {
       */
     public function search($params) {
 
-        $query = Robot::find();
+        $query = Robot::find()->joinWith(['discip']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
         $dataProvider->setSort([
-            'defaultOrder' => ['id' => SORT_ASC],
             'attributes' => [
                 'id',
                 'yname',
                 'sname',
-                'disName' => [
+                'discipline' => [
                     'asc' => [Discipline::tableName().'.name' => SORT_ASC],
                     'desc' => [Discipline::tableName().'.name' => SORT_DESC],
-                    'label' => 'disName'
+                    'label' => 'Discipline Name'
                 ],
                 'platform',
                 'weight',
             ],
         ]);
 
-        $this->load($params);
-
-        if (!$this->validate()) {
+        if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
@@ -77,9 +74,7 @@ class RobotSearch extends Robot {
               ->andFilterWhere(['like', 'sname', $this->sname])
               ->andFilterWhere(['like', 'platform', $this->platform])
               ->andFilterWhere(['like', 'weight', $this->weight])
-              ->joinWith(['dis' => function ($q) {
-            $q->where(Discipline::tableName().'.name LIKE "%' . $this->disName . '%"');
-        }]);
+              ->andFilterWhere(['discipline' => $this->discipline]);
 
         return $dataProvider;
     }

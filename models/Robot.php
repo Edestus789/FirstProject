@@ -18,7 +18,7 @@ use Yii;
   */
 class Robot extends \yii\db\ActiveRecord {
 
-    public $disName;
+  public $discipName;
 
     /**
       * {@inheritdoc}
@@ -41,14 +41,20 @@ class Robot extends \yii\db\ActiveRecord {
         ];
     }
 
-    public function getDis() {
+    /**
+      * {@inheritdoc}
+      */
+    public function getDiscip() {
 
        return $this->hasOne(Discipline::className(), ['id' => 'discipline']);
     }
 
-    public function getDisName() {
+    /**
+      * {@inheritdoc}
+      */
+    public function getDiscipName() {
 
-       return $this->dis->name;
+       return $this->discip->name;
     }
 
     /**
@@ -63,6 +69,7 @@ class Robot extends \yii\db\ActiveRecord {
             'discipline' => Yii::t('common', 'Discipline'),
             'platform' => Yii::t('common', 'Platform'),
             'weight' => 'weight',
+            'discipName' => 'discipName'
         ];
     }
 }

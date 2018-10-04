@@ -1,9 +1,10 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 $this->title = Yii::t('common', 'Create Robot');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Robot'), 'url' => [Yii::$app->homeUrl]];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Robot'), 'url' => Url::toRoute(['site/index'])];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>

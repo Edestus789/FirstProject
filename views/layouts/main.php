@@ -27,9 +27,7 @@ AppAsset::register($this);
         <?php $this->beginBody() ?>
         <div class="wrap">
 
-            <?php
-
-            NavBar::begin([
+            <?php NavBar::begin([
                     'brandLabel' => Yii::$app->name,
                     'brandUrl' => Url::to(['@web/site/index']),
                     'options' => [
@@ -39,7 +37,7 @@ AppAsset::register($this);
                 echo Nav::widget([
                     'options' => ['class' => 'navbar-nav navbar-right'],
                     'items' => [
-                        ['label' => Yii::t('common', 'Home'), 'url' => [Yii::$app->homeUrl]],
+                        ['label' => Yii::t('common', 'Home'), 'url' => Url::toRoute(['site/index'])],
                         [
                             'label' => (\Yii::$app->language == 'ru')?'Go to English':'Перейти на Русский',
                             'url' => (\Yii::$app->language == 'ru')?
@@ -48,14 +46,12 @@ AppAsset::register($this);
                         ],
                     ],
                 ]);
-            NavBar::end();
-
-            ?>
+            NavBar::end(); ?>
 
             <div class="container">
 
               <?= Breadcrumbs::widget([
-                  'homeLink' => ['label' => Yii::t('common', 'Home'), 'url' => Url::to(['@web/site/index'])],
+                  'homeLink' => ['label' => Yii::t('common', 'Home'), 'url' => Url::toRoute(['site/index'])],
                   'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
               ]) ?>
 
