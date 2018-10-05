@@ -3,6 +3,7 @@
 // Translation file EN -> RU
 
 return [
+    'Language' =>'Язык',
     'Create Robot' =>'Создать запись',
     'Your name' => 'Ваше имя',
     'I am a message!' => 'Я есть Грут!',

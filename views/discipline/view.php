@@ -2,9 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Discipline'), 'url' => ['discipline/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Discipline'), 'url' => Url::toRoute(['discipline/index'])];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>

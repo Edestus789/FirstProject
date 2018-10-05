@@ -1,9 +1,10 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 $this->title = Yii::t('common', 'Create Discipline');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Discipline'), 'url' => ['discipline/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Discipline'), 'url' => Url::toRoute(['discipline/index'])];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>

@@ -3,11 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\ActiveField;
+use app\components\DinamicListWidget;
 
-$request = Yii::$app->request;
-
-$itemsDis = \yii\helpers\ArrayHelper::map(\app\models\Discipline::find()
-    ->all(), 'id', 'name');
 ?>
 
 <div class="robot-form">
@@ -25,8 +22,9 @@ $itemsDis = \yii\helpers\ArrayHelper::map(\app\models\Discipline::find()
     ?>
 
     <?= $form->field($model, 'discipline')
-        ->dropDownList($itemsDis, ['prompt' => Yii::t('common', 'Сhoose a discipline')])
-        ->label(Yii::t('common', 'Discipline').' '.Html::a(Yii::t('common', '[edit]'), ['discipline/index'], ['class' => 'profile-link']));
+        ->dropDownList(unserialize(DinamicListWidget::widget(['model' => $model])),
+            ['prompt' => Yii::t('common', 'Сhoose a discipline')])
+        ->label(Yii::t('common', 'Discipline'))
     ?>
 
     <?= $form->field($model, 'platform')

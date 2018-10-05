@@ -7,6 +7,11 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use yii\helpers\Url;
+use rmrevin\yii\fontawesome\FA;
+use app\components\LangListWidget;
+
+// Inject CdnFreeAssetBundle for "Font Awesome"
+rmrevin\yii\fontawesome\CdnFreeAssetBundle::register($this);
 
 AppAsset::register($this);
 
@@ -27,7 +32,8 @@ AppAsset::register($this);
         <?php $this->beginBody() ?>
         <div class="wrap">
 
-            <?php NavBar::begin([
+            <?php
+                NavBar::begin([
                     'brandLabel' => Yii::$app->name,
                     'brandUrl' => Url::to(['@web/site/index']),
                     'options' => [
@@ -36,28 +42,29 @@ AppAsset::register($this);
                 ]);
                 echo Nav::widget([
                     'options' => ['class' => 'navbar-nav navbar-right'],
+                    'encodeLabels' => false,
                     'items' => [
-                        ['label' => Yii::t('common', 'Home'), 'url' => Url::toRoute(['site/index'])],
+                        ['label' => Yii::t('common', 'Home', 'en'), 'url' => Url::toRoute(['site/index'])],
+                        ['label' => Yii::t('common', 'Create Discipline'), 'url' => Url::toRoute(['discipline/index'])],
                         [
-                            'label' => (\Yii::$app->language == 'ru')?'Go to English':'Перейти на Русский',
-                            'url' => (\Yii::$app->language == 'ru')?
-                            [Yii::$app->controller->route,'language' => 'en',  'id' => Yii::$app->request->get('id') ]:
-                            [Yii::$app->controller->route,'language' => 'ru',  'id' => Yii::$app->request->get('id') ],
+                            'label' => FA::icon('flag').' '.Yii::t('common', 'Language'),
+                            'items' => unserialize(LangListWidget::widget())
                         ],
                     ],
                 ]);
-            NavBar::end(); ?>
+                NavBar::end();
+            ?>
 
             <div class="container">
 
-              <?= Breadcrumbs::widget([
-                  'homeLink' => ['label' => Yii::t('common', 'Home'), 'url' => Url::toRoute(['site/index'])],
-                  'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-              ]) ?>
+                <?= Breadcrumbs::widget([
+                    'homeLink' => ['label' => Yii::t('common', 'Home'), 'url' => Url::toRoute(['site/index'])],
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                ]) ?>
 
-              <?= Alert::widget() ?>
+                <?= Alert::widget() ?>
 
-              <?= $content ?>
+                <?= $content ?>
 
             </div>
         </div>

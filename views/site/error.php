@@ -14,14 +14,14 @@ $this->title = $name;
     <p>
 
         <?php
-           echo Yii::t('common', 'The above error occurred while the Web server was processing your request.');
+            echo Yii::t('common', 'The above error occurred while the Web server was processing your request.');
         ?>
 
     </p>
     <p>
 
         <?php
-           echo Yii::t('common', 'Please contact us if you think this is a server error. Thank you.');
+            echo Yii::t('common', 'Please contact us if you think this is a server error. Thank you.');
         ?>
 
         <a href="https://ya.ru/">

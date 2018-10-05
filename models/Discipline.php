@@ -14,7 +14,7 @@ use Yii;
   * @property string $Description
   */
 class Discipline extends \yii\db\ActiveRecord {
-  
+
     /**
       * {@inheritdoc}
       */
@@ -45,7 +45,7 @@ class Discipline extends \yii\db\ActiveRecord {
         return [
             'id' => 'ID',
             'name' => Yii::t('common', 'Discipline'),
-            'description' => 'description',
+            'description' => Yii::t('common', 'Description'),
         ];
     }
 }

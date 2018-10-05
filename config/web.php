@@ -15,15 +15,15 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
-        'lengselect' =>[
-            'class' => 'app\components\LengSelect',
+        'langselect' =>[
+            'class' => 'app\components\LangSelect',
         ],
         'i18n' => [
             'translations' => [
                 'common*' => [
-                  'sourceLanguage' => 'en',
-                  'class' => 'yii\i18n\PhpMessageSource',
-                  'basePath' => '@app/messages',
+                    'sourceLanguage' => 'en',
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
                 ],
             ],
         ],

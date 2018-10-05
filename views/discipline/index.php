@@ -17,24 +17,25 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
     <div class="body-content">
 
-      <?= GridView::widget([
-          'dataProvider' => $dataProvider,
-          'filterModel' => $searchModel,
-          'columns' => [
-              ['class' => 'yii\grid\SerialColumn'],
-              ['attribute' =>'id', 'label' => 'ID'],
-              ['attribute' =>'name', 'label' => Yii::t('common', 'Name')],
-              ['attribute' =>'description', 'label' => Yii::t('common', 'Description')],
-              ['class' => 'yii\grid\ActionColumn',
-                  'header'=> Yii::t('common', 'Actions'),
-                  'headerOptions' => ['width' => '58'],
-                  'visibleButtons' => [
-                      'delete' => function($data) { return $data->id !== 1;}
-                  ],
-                  'template' => '{view} {update} {delete}',
-              ],
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+                ['attribute' =>'id', 'label' => 'ID'],
+                ['attribute' =>'name', 'label' => Yii::t('common', 'Name')],
+                ['attribute' =>'description'],
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                    'header'=> Yii::t('common', 'Actions'),
+                    'headerOptions' => ['width' => '58'],
+                    'visibleButtons' => [
+                        'delete' => function($data) { return $data->id !== 1;}
+                    ],
+                    'template' => '{view} {update} {delete}',
+                ],
             ],
-      ]); ?>
+        ]); ?>
 
     </div>
 </div>

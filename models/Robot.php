@@ -42,19 +42,11 @@ class Robot extends \yii\db\ActiveRecord {
     }
 
     /**
-      * {@inheritdoc}
+      * Relations category discipline
       */
     public function getDiscip() {
 
-       return $this->hasOne(Discipline::className(), ['id' => 'discipline']);
-    }
-
-    /**
-      * {@inheritdoc}
-      */
-    public function getDiscipName() {
-
-       return $this->discip->name;
+        return $this->hasOne(Discipline::className(), ['id' => 'discipline']);
     }
 
     /**
@@ -65,11 +57,10 @@ class Robot extends \yii\db\ActiveRecord {
         return [
             'id' => 'ID',
             'yname' => Yii::t('common', 'Your name'),
-            'sname' => 'sname',
+            'sname' => Yii::t('common', 'SupV name'),
             'discipline' => Yii::t('common', 'Discipline'),
             'platform' => Yii::t('common', 'Platform'),
-            'weight' => 'weight',
-            'discipName' => 'discipName'
+            'weight' => Yii::t('common', 'Weight'),
         ];
     }
 }

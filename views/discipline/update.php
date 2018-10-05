@@ -1,10 +1,11 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 $this->title = Yii::t('common', 'Update Discipline: ') . $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Discipline'), 'url' => [Yii::$app->homeUrl]];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Discipline'), 'url' => Url::toRoute(['discipline/index'])];
+$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => Url::toRoute(['view', 'id' => $model->id])];
 $this->params['breadcrumbs'][] = Yii::t('common', 'Update');
 
 ?>

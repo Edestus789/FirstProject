@@ -2,9 +2,9 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
 use yii\helpers\Url;
 use app\models\RobotSearch;
+use app\components\DinamicListWidget;
 
 $this->title = Yii::$app->name;
 $this->params['breadcrumbs'][] = $this->title;
@@ -15,9 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="jumbotron">
         <h1><?= Html::encode($this->title) ?></h1>
     </div>
-      <p>
-          <?= Html::a( Yii::t( 'common', 'Create Robot'), Url::toRoute(['site/create']), ['class' => 'btn btn-success']) ?>
-      </p>
+        <p>
+            <?= Html::a( Yii::t( 'common', 'Create Robot'), Url::toRoute(['site/create']), ['class' => 'btn btn-success']) ?>
+        </p>
     <div class="body-content">
 
         <?= GridView::widget([
@@ -25,18 +25,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'filterModel' => $searchModel,
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
-                ['attribute' =>'id', 'label' => 'ID'],
-                ['attribute' =>'yname', 'label' => Yii::t('common', 'Your name')],
-                ['attribute' =>'sname', 'label' => Yii::t('common', 'SupV name')],
+                ['attribute' =>'id'],
+                ['attribute' =>'yname'],
+                ['attribute' =>'sname'],
                 [
-                  'label'=>Yii::t('common', 'Discipline'),
                     'attribute'=>'discipline',
                     'value' => function($row){return $row->discip->name;},
-                    'filter'=> \yii\helpers\ArrayHelper::map(\app\models\Discipline::find()->all(), 'id', 'name'),
+                    'filter'=> unserialize(DinamicListWidget::widget(['model' => $dataProvider->getModels()])),
                 ],
-                ['attribute' =>'platform', 'label' => Yii::t('common', 'Platform')],
-                ['attribute' =>'weight', 'label' => Yii::t('common', 'Weight')],
-                ['class' => 'yii\grid\ActionColumn',
+                ['attribute' =>'platform'],
+                ['attribute' =>'weight'],
+                [
+                    'class' => 'yii\grid\ActionColumn',
                     'header'=>Yii::t('common', 'Actions'),
                     'headerOptions' => ['width' => '58'],
                     'template' => '{view} {update} {delete}',
