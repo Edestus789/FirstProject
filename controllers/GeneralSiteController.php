@@ -8,7 +8,7 @@ use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 
-class GeneralSiteController extends Controller {
+abstract class GeneralSiteController extends Controller {
 
     /**
       * {@inheritdoc}
@@ -93,20 +93,11 @@ class GeneralSiteController extends Controller {
         ];
     }
 
-
-
-
-
     /**
-      * An empty method to override later.
+      * Abstract method to override later.
       * @param integer $id
       */
-    protected function findModel($id) {}
-
-
-
-
-
+    abstract protected function findModel($id);
 
     /**
       * Displays a single model.

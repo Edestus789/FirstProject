@@ -21,7 +21,7 @@ class SiteController extends GeneralSiteController {
       * @throws NotFoundHttpException if the model cannot be found
       */
     protected function findModel($id) {
-        
+
         $model = Robot::findOne($id);
 
         if ($model !== null) {

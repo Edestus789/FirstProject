@@ -8,7 +8,6 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use yii\helpers\Url;
 use rmrevin\yii\fontawesome\FA;
-use app\components\LangListWidget;
 
 // Inject CdnFreeAssetBundle for "Font Awesome"
 rmrevin\yii\fontawesome\CdnFreeAssetBundle::register($this);
