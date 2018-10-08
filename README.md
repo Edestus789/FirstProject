@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <p align="center">
     <a href="https://github.com/yiisoft" target="_blank">
         <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
@@ -231,3 +232,6 @@ vendor/bin/codecept run functional,unit -- --coverage-html --coverage-xml
 ```
 
 You can see code coverage output under the `tests/_output` directory.
+=======
+# FirstProject
+>>>>>>> 77b54c99be4fb7830ba3e9a1ce9889632a4c55aa
