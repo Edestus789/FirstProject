@@ -22,8 +22,6 @@ class SiteController extends GeneralSiteController {
       */
     protected function findModel($id) {
         
-        parent::findModel($id);
-
         $model = Robot::findOne($id);
 
         if ($model !== null) {

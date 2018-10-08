@@ -3,8 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
-use app\models\RobotSearch;
-use app\components\DinamicListWidget;
+use app\controllers\DisciplineController;
 
 $this->title = Yii::$app->name;
 $this->params['breadcrumbs'][] = $this->title;
@@ -31,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'attribute'=>'discipline',
                     'value' => function($row){return $row->discip->name;},
-                    'filter'=> unserialize(DinamicListWidget::widget(['model' => $dataProvider->getModels()])),
+                    'filter'=> DisciplineController::getListDiscipline($dataProvider->getModels()),
                 ],
                 ['attribute' =>'platform'],
                 ['attribute' =>'weight'],

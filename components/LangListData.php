@@ -7,33 +7,28 @@ namespace app\components;
 
 use Yii;
 use yii\helpers\ArrayHelper;
-use yii\base\Widget;
+use yii\base\BaseObject;
 use app\models\Lang;
 
-class LangListWidget extends Widget {
+class LangListData extends BaseObject {
 
-    public function init(){
-
-        parent::init();
-    }
-
-    public function run() {
+    public function getList() {
 
         $itemsLang = Yii::$app->params['siteLeng'];
 
         foreach ($itemsLang as $key => $value) {
 
             $itemsList[$key] = [
-                'label' => current($value),
+                'label' => $value,
                 'url' => [
                     Yii::$app->controller->route,
-                    'language' => array_keys($value)[0],
+                    'language' => $key,
                     'id' => Yii::$app->request->get('id')
                 ]
             ];
         }
 
-        return serialize($itemsList) ;
+        return $itemsList;
     }
 }
 

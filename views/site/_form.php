@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\ActiveField;
-use app\components\DinamicListWidget;
+use app\controllers\DisciplineController;
 
 ?>
 
@@ -22,7 +22,7 @@ use app\components\DinamicListWidget;
     ?>
 
     <?= $form->field($model, 'discipline')
-        ->dropDownList(unserialize(DinamicListWidget::widget(['model' => $model])),
+        ->dropDownList(DisciplineController::getListDiscipline($model),
             ['prompt' => Yii::t('common', 'Сhoose a discipline')])
         ->label(Yii::t('common', 'Discipline'))
     ?>

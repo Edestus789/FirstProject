@@ -48,7 +48,7 @@ AppAsset::register($this);
                         ['label' => Yii::t('common', 'Create Discipline'), 'url' => Url::toRoute(['discipline/index'])],
                         [
                             'label' => FA::icon('flag').' '.Yii::t('common', 'Language'),
-                            'items' => unserialize(LangListWidget::widget())
+                            'items' => Yii::$app->langlistdata->getList()
                         ],
                     ],
                 ]);
