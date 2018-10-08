@@ -1,0 +1,35 @@
+drop table tbl_robot;
+drop table old_tbl_robot;
+drop table tbl_discipline;
+drop table migration;
+DROP TRIGGER work.mng_collision;
+
+CREATE TABLE tbl_discipline (
+id INT AUTO_INCREMENT NOT NULL,
+name VARCHAR(30) NOT NULL,
+ description VARCHAR(200) NOT NULL,
+ PRIMARY KEY(id)
+ )ENGINE=InnoDB CHARACTER SET=UTF8 DEFAULT COLLATE utf8_general_ci;
+
+CREATE TABLE tbl_robot (
+  id INT AUTO_INCREMENT NOT NULL,
+  yname VARCHAR(30),
+  sname VARCHAR(30),
+  discipline INT  DEFAULT '1',
+  platform  VARCHAR(30),
+  weight  VARCHAR(30),
+  PRIMARY KEY(id),
+  FOREIGN KEY (discipline) REFERENCES tbl_discipline(id)
+    ON UPDATE NO ACTION
+    ON DELETE SET null
+     )ENGINE=InnoDB CHARACTER SET=UTF8 DEFAULT COLLATE utf8_general_ci;
+
+DELIMITER |
+CREATE TRIGGER mng_collision AFTER DELETE ON tbl_discipline
+FOR EACH ROW BEGIN
+  UPDATE tbl_robot SET discipline = DEFAULT WHERE discipline IS NULL;
+END;
+|
+DELIMITER ; ;
+
+SHOW TABLES;
