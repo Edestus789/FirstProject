@@ -23,7 +23,7 @@ class SiteController extends GeneralSiteController {
       * When overriding a class, make the first line $model = parent:: find Model($id);
       */
     protected function findModel($id) {
-        $model = parent::findModel($id);
+
         $model = Robot::findOne($id);
 
         if ($model !== null) {

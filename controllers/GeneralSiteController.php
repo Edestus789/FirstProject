@@ -7,6 +7,7 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
+use app\services\LengService;
 
 abstract class GeneralSiteController extends Controller {
 
@@ -15,49 +16,7 @@ abstract class GeneralSiteController extends Controller {
       */
     public function beforeAction($action) {
 
-        $request = Yii::$app->request;
-        $get = $request->get('language','');
-
-        $session = Yii::$app->session;
-        $cookiesReq = Yii::$app->request->cookies;
-
-        /**
-          *  Queries the cookie,
-          *  if they exist, the application language accepts them.
-          *  Otherwise takes the default application language.
-          *  When you change the language writes it to the session or cookies.
-          *  Sets a cookie with a lifetime of 86400, 1 day.
-          */
-        if ($cookiesReq->get('language') !== null) {
-
-            $cookiesRes = Yii::$app->response->cookies;
-
-            if($get!=''){
-
-                Yii::$app->language = $get;
-                $cookiesRes->add(new Cookie([
-                    'name' => 'language',
-                    'value' => $get,
-                    'expire' => 86400,
-                ]));
-
-            } else {
-
-                Yii::$app->language = $cookiesReq->get('language');
-            }
-
-        } else {
-
-            if($get!=''){
-
-                Yii::$app->language = $get;
-                $session->set('language', $get);
-
-            } else {
-
-                Yii::$app->language = $session->get('language');
-            }
-        }
+        LengService::select();
 
         return parent::beforeAction($action);
     }

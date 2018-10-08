@@ -15,9 +15,6 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
-        'langlistdata' =>[
-            'class' => 'app\components\LangListData',
-        ],
         'i18n' => [
             'translations' => [
                 'common*' => [
