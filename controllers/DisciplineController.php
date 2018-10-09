@@ -9,7 +9,6 @@ use yii\web\Controller;
 use app\models\Discipline;
 use app\models\DisciplineSearch;
 use yii\web\NotFoundHttpException;
-use yii\helpers\ArrayHelper;
 
 class DisciplineController extends GeneralSiteController {
 
@@ -29,28 +28,6 @@ class DisciplineController extends GeneralSiteController {
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-    /**
-      * Function -  raises the current discipline to the top of the list ang sends name discipline list.
-      * Returns the prepared list of discipline names.
-      * @param array $model
-      * @return array $itemsDis
-      */
-    static public function getListDiscipline($model) {
-
-        $itemsDis = ArrayHelper::map(Discipline::find()->all(), 'id', 'name');
-
-        if(Yii::$app->request->get('r','')=='site/update') {
-
-            $elementDis120 = Discipline::findOne(['name' => $model->discip->name]);
-
-            $elementDis = array($elementDis120->id => $model->discip->name);
-
-            $itemsDis = $elementDis + $itemsDis;
-        }
-
-        return $itemsDis;
     }
 
     /**

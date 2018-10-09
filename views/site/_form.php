@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\ActiveField;
-use app\controllers\DisciplineController;
+use app\models\DisciplineSearch;
 
 ?>
 
@@ -22,7 +22,7 @@ use app\controllers\DisciplineController;
     ?>
 
     <?= $form->field($model, 'discipline')
-        ->dropDownList(DisciplineController::getListDiscipline($model),
+        ->dropDownList(DisciplineSearch::getListDiscipline($model),
             ['prompt' => Yii::t('common', 'Сhoose a discipline')])
         ->label(Yii::t('common', 'Discipline'))
     ?>
