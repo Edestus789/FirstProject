@@ -8,7 +8,7 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use yii\helpers\Url;
 use rmrevin\yii\fontawesome\FA;
-use app\services\LengService;
+use app\helpers\LengHelper;
 
 // Inject CdnFreeAssetBundle for "Font Awesome"
 rmrevin\yii\fontawesome\CdnFreeAssetBundle::register($this);
@@ -48,7 +48,7 @@ AppAsset::register($this);
                         ['label' => Yii::t('common', 'Create Discipline'), 'url' => Url::toRoute(['discipline/index'])],
                         [
                             'label' => FA::icon('flag').' '.Yii::t('common', 'Language'),
-                            'items' => LengService::getList()
+                            'items' => LengHelper::getList()
                         ],
                     ],
                 ]);

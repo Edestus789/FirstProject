@@ -7,7 +7,7 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-use app\services\LengService;
+use app\helpers\LengHelper;
 
 abstract class GeneralSiteController extends Controller {
 
@@ -16,7 +16,7 @@ abstract class GeneralSiteController extends Controller {
       */
     public function beforeAction($action) {
 
-        LengService::select();
+        LengHelper::select();
 
         return parent::beforeAction($action);
     }

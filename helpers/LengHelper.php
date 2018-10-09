@@ -2,18 +2,18 @@
 
 // Service functions - to work with language.
 
-namespace app\services;
+namespace app\helpers;
 
 use Yii;
 use yii\helpers\ArrayHelper;
 
-class LengService {
+class LengHelper {
 
     /**
       * Returns the prepared list of active languages.
       * @return array $itemsList
       */
-    public function getList() {
+    static public function getList() {
 
         $itemsLang = Yii::$app->params['siteLeng'];
 
