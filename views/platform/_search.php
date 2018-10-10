@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 
 ?>
 
-<div class="robot-search">
+<div class="platform-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -14,17 +14,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'yname') ?>
+    <?= $form->field($model, 'name') ?>
 
-    <?= $form->field($model, 'sname') ?>
-
-    <?= $form->field($model, 'rname') ?>
-
-    <?= $form->field($model, 'discipline') ?>
-
-    <?= $form->field($model, 'platform') ?>
-
-    <?= $form->field($model, 'weight') ?>
+    <?= $form->field($model, 'description') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

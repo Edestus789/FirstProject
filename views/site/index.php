@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
 use app\models\DisciplineSearch;
+use app\models\PlatformSearch;
+use app\models\Platform;
 
 $this->title = Yii::$app->name;
 $this->params['breadcrumbs'][] = $this->title;
@@ -27,12 +29,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 ['attribute' =>'id'],
                 ['attribute' =>'yname'],
                 ['attribute' =>'sname'],
+                ['attribute' =>'rname'],
                 [
                     'attribute'=>'discipline',
-                    'value' => function($row){return $row->discip->name;},
+                    'value' => function($row){return $row->discipln->name;},
                     'filter'=> DisciplineSearch::getListDiscipline($dataProvider->getModels()),
                 ],
-                ['attribute' =>'platform'],
+                [
+                    'attribute'=>'platform',
+                    'value' => function($row){return $row->platfm->name;},
+                    'filter'=> PlatformSearch::getListPlatform($dataProvider->getModels()),
+                ],
                 ['attribute' =>'weight'],
                 [
                     'class' => 'yii\grid\ActionColumn',

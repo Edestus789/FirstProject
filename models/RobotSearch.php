@@ -9,13 +9,12 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Robot;
 use app\models\Discipline;
+use app\models\Platform;
 
 /**
   * RobotSearch represents the model behind the search form of `app\models\Robot`.
   */
 class RobotSearch extends Robot {
-
-    public $discipName;
 
     /**
       * {@inheritdoc}
@@ -23,8 +22,8 @@ class RobotSearch extends Robot {
     public function rules() {
 
         return [
-            [['discipline'], 'integer'],
-            [['yname', 'sname', 'discipline', 'platform', 'weight', 'discipName'], 'safe'],
+            [['discipline', 'platform'], 'integer'],
+            [['yname', 'sname', 'discipline', 'rname', 'weight'], 'safe'],
         ];
     }
 
@@ -45,7 +44,7 @@ class RobotSearch extends Robot {
       */
     public function search($params) {
 
-        $query = Robot::find()->joinWith(['discip']);
+        $query = Robot::find()->joinWith(['platfm'])->joinWith(['discipln']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -56,12 +55,17 @@ class RobotSearch extends Robot {
                 'id',
                 'yname',
                 'sname',
+                'rname',
                 'discipline' => [
                     'asc' => [Discipline::tableName().'.name' => SORT_ASC],
                     'desc' => [Discipline::tableName().'.name' => SORT_DESC],
                     'label' => 'Discipline Name'
                 ],
-                'platform',
+                'platform' => [
+                    'asc' => [Platform::tableName().'.name' => SORT_ASC],
+                    'desc' => [Platform::tableName().'.name' => SORT_DESC],
+                    'label' => 'Platform Name'
+                ],
                 'weight',
             ],
         ]);
@@ -72,8 +76,9 @@ class RobotSearch extends Robot {
 
         $query->andFilterWhere(['like', 'yname', $this->yname])
               ->andFilterWhere(['like', 'sname', $this->sname])
-              ->andFilterWhere(['like', 'platform', $this->platform])
+              ->andFilterWhere(['like', 'rname', $this->rname])
               ->andFilterWhere(['like', 'weight', $this->weight])
+              ->andFilterWhere(['platform' => $this->platform])
               ->andFilterWhere(['discipline' => $this->discipline]);
 
         return $dataProvider;

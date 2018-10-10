@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\ActiveField;
 use app\models\DisciplineSearch;
+use app\models\PlatformSearch;
 
 ?>
 
@@ -21,6 +22,11 @@ use app\models\DisciplineSearch;
         ->label(Yii::t('common', 'SupV name'))
     ?>
 
+    <?= $form->field($model, 'rname')
+        ->textInput(['maxlength' => true])
+        ->label(Yii::t('common', 'Robot name'))
+    ?>
+
     <?= $form->field($model, 'discipline')
         ->dropDownList(DisciplineSearch::getListDiscipline($model),
             ['prompt' => Yii::t('common', 'Сhoose a discipline')])
@@ -28,7 +34,8 @@ use app\models\DisciplineSearch;
     ?>
 
     <?= $form->field($model, 'platform')
-        ->textInput(['maxlength' => true])
+        ->dropDownList(PlatformSearch::getListPlatform($model),
+            ['prompt' => Yii::t('common', 'Сhoose a platform')])
         ->label(Yii::t('common', 'Platform'))
     ?>
 

@@ -12,13 +12,12 @@ use Yii;
   * @property int $id
   * @property string $yname
   * @property string $SName
+  * @property string $RName
   * @property string $discipline
   * @property string $Platform
   * @property string $Weight
   */
 class Robot extends \yii\db\ActiveRecord {
-
-  public $discipName;
 
     /**
       * {@inheritdoc}
@@ -34,19 +33,27 @@ class Robot extends \yii\db\ActiveRecord {
 
         return [
             [['id'], 'integer'],
-            [['discipline'], 'integer'],
-            [['yname', 'sname','platform'], 'string', 'max' => 30],
+            [['discipline', 'platform'], 'integer'],
+            [['yname', 'sname', 'rname'], 'string', 'max' => 30],
             [['weight'], 'string', 'max' => 10],
-            [['yname', 'discipline', 'platform'], 'required'],
+            [['yname', 'rname', 'discipline', 'platform'], 'required'],
         ];
     }
 
     /**
       * Relations category discipline
       */
-    public function getDiscip() {
+    public function getDiscipln() {
 
         return $this->hasOne(Discipline::className(), ['id' => 'discipline']);
+    }
+
+    /**
+      * Relations category platform
+      */
+    public function getPlatfm() {
+
+        return $this->hasOne(Platform::className(), ['id' => 'platform']);
     }
 
     /**
@@ -58,6 +65,7 @@ class Robot extends \yii\db\ActiveRecord {
             'id' => 'ID',
             'yname' => Yii::t('common', 'Your name'),
             'sname' => Yii::t('common', 'SupV name'),
+            'rname' => Yii::t('common', 'Robot name'),
             'discipline' => Yii::t('common', 'Discipline'),
             'platform' => Yii::t('common', 'Platform'),
             'weight' => Yii::t('common', 'Weight'),

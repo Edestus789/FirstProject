@@ -5,12 +5,12 @@ use yii\widgets\DetailView;
 use yii\helpers\Url;
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Robot'), 'url' => Url::toRoute(['site/index'])];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('common', 'Platform'), 'url' => Url::toRoute(['platform/index'])];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 
-<div class="robot-view">
+<div class="platform-view">
     <h1><?= Html::encode($this->title) ?></h1>
     <p>
 
@@ -31,12 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'yname',
-            'sname',
-            'rname',
-            'discipln.name',
-            'platfm.name',
-            'weight',
+            'name',
+            'description',
         ],
     ]) ?>
 

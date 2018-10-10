@@ -46,6 +46,7 @@ AppAsset::register($this);
                     'items' => [
                         ['label' => Yii::t('common', 'Home', 'en'), 'url' => Url::toRoute(['site/index'])],
                         ['label' => Yii::t('common', 'Create Discipline'), 'url' => Url::toRoute(['discipline/index'])],
+                        ['label' => Yii::t('common', 'Create Platform'), 'url' => Url::toRoute(['platform/index'])],
                         [
                             'label' => FA::icon('flag').' '.Yii::t('common', 'Language'),
                             'items' => LengHelper::getList()

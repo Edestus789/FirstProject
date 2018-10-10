@@ -1,19 +1,19 @@
 <?php
 
-//  Discipline search Model
+//  Platform search Model
 
 namespace app\models;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Discipline;
+use app\models\Platform;
 use yii\helpers\ArrayHelper;
 
 /**
-  * DisciplineSearch represents the model behind the search form of `app\models\Robot`.
+  * PlatformSearch represents the model behind the search form of `app\models\Robot`.
   */
-class DisciplineSearch extends Discipline {
+class PlatformSearch extends Platform {
     /**
       * {@inheritdoc}
       */
@@ -39,16 +39,16 @@ class DisciplineSearch extends Discipline {
       */
     public function search($params) {
 
-        $query = Discipline::find();
+        $query = Platform::find();
 
-        $dataProviderDis = new ActiveDataProvider([
+        $dataProviderPlat = new ActiveDataProvider([
             'query' => $query,
         ]);
 
         $this->load($params);
 
         if (!$this->validate()) {
-            return $dataProviderDis;
+            return $dataProviderPlat;
         }
 
         $query->andFilterWhere([
@@ -58,29 +58,29 @@ class DisciplineSearch extends Discipline {
         $query->andFilterWhere(['like', 'name', $this->name])
               ->andFilterWhere(['like', 'description', $this->description]);
 
-        return $dataProviderDis;
+        return $dataProviderPlat;
     }
 
     /**
-      * Function -  raises the current discipline to the top of the list ang sends name discipline list.
-      * Returns the prepared list of discipline names.
+      * Function -  raises the current platform to the top of the list ang sends name platform list.
+      * Returns the prepared list of platform names.
       * @param array $model
-      * @return array $itemsDis
+      * @return array $itemsPlat
       */
-    static public function getListDiscipline($model) {
+    static public function getListPlatform($model) {
 
-        $itemsDis = ArrayHelper::map(Discipline::find()->all(), 'id', 'name');
+        $itemsPlat = ArrayHelper::map(Platform::find()->all(), 'id', 'name');
 
         if(Yii::$app->request->get('r','')=='site/update') {
 
-            $elementDis120 = Discipline::findOne(['name' => $model->discipln->name]);
+            $elementPlat120 = Platform::findOne(['name' => $model->platfm->name]);
 
-            $elementDis = array($elementDis120->id => $model->discipln->name);
+            $elementPlat = array($elementPlat120->id => $model->platfm->name);
 
-            $itemsDis = $elementDis + $itemsDis;
+            $itemsPlat = $elementPlat + $itemsPlat;
         }
 
-        return $itemsDis;
+        return $itemsPlat;
     }
 }
 
