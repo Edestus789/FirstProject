@@ -50,7 +50,6 @@ class m181009_105433_newfeature extends Migration {
             'id',
             'SET null',
             'NO ACTION'
-
         );
 
         $this->addForeignKey(
