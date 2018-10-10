@@ -11,7 +11,7 @@ use app\models\Discipline;
 use yii\helpers\ArrayHelper;
 
 /**
-  * DisciplineSearch represents the model behind the search form of `app\models\Robot`.
+  * DisciplineSearch represents the model behind the search form of `app\models\Discipline`.
   */
 class DisciplineSearch extends Discipline {
     /**
@@ -20,7 +20,7 @@ class DisciplineSearch extends Discipline {
     public function rules() {
 
         return [
-            [['name', 'description'], 'safe'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -45,18 +45,20 @@ class DisciplineSearch extends Discipline {
             'query' => $query,
         ]);
 
+        $dataProviderDis->setSort([
+            'attributes' => [
+                'id',
+                'name'
+            ],
+        ]);
+
         $this->load($params);
 
         if (!$this->validate()) {
             return $dataProviderDis;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-        ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name])
-              ->andFilterWhere(['like', 'description', $this->description]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProviderDis;
     }

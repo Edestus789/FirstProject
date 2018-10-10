@@ -11,7 +11,7 @@ use app\models\Platform;
 use yii\helpers\ArrayHelper;
 
 /**
-  * PlatformSearch represents the model behind the search form of `app\models\Robot`.
+  * PlatformSearch represents the model behind the search form of `app\models\Platform`.
   */
 class PlatformSearch extends Platform {
     /**
@@ -20,7 +20,7 @@ class PlatformSearch extends Platform {
     public function rules() {
 
         return [
-            [['name', 'description'], 'safe'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -45,18 +45,20 @@ class PlatformSearch extends Platform {
             'query' => $query,
         ]);
 
+        $dataProviderPlat->setSort([
+            'attributes' => [
+                'id',
+                'name'
+            ],
+        ]);
+
         $this->load($params);
 
         if (!$this->validate()) {
             return $dataProviderPlat;
         }
 
-        $query->andFilterWhere([
-            'id' => $this->id,
-        ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name])
-              ->andFilterWhere(['like', 'description', $this->description]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProviderPlat;
     }

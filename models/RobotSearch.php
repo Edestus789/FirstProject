@@ -44,7 +44,7 @@ class RobotSearch extends Robot {
       */
     public function search($params) {
 
-        $query = Robot::find()->joinWith(['platfm'])->joinWith(['discipln']);
+        $query = Robot::find()->joinWith(['platfm', 'discipln']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
